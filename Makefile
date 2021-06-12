@@ -9,4 +9,4 @@ datos.txt: prueba-2D.x
 	./$< > $@
 
 clean:
-	rm *.x *.out *.txt
+	rm *.x *.out *.txt *.pdf
