@@ -1,10 +1,10 @@
 #include <iostream>
 #include <time.h>
-
+#include <stdio.h>
 // Este codigo genera un caminante en diagonal, es decir que su velocidad no es 1/iteración sino sqrt(2)/iteración, esto se debe tener en cuenta para el analisis de resultados pero no interfiere propiamente con lo que se quiere simular.
 
 
-int random_step();//función que determina el avance del caminante en cada paso
+int* random_step(int dimension, int *r);//función que determina el avance del caminante en cada paso
 
 int main(int argc, char **argv)
 {
@@ -18,8 +18,7 @@ int main(int argc, char **argv)
   srand((unsigned) time(NULL));//inicializa semilla del randomizador según el tiempo de la maquina, para que siempre sea distinto.
   for(int ii=0; ii<total_steps; ++ii)
     {
-      aux_position[0] = aux_position[0]+random_step(); //se determina el punto al que se debe caminar
-      aux_position[1] = aux_position[1]+random_step(); //x2
+      random_step(dimension,aux_position); //se determina el punto al que se debe caminar
       
       for(int jj=0; jj<ii; ++jj)
 	{
@@ -74,20 +73,24 @@ int main(int argc, char **argv)
   return 0;
 }
 
-int random_step()//esta funcion da un numero aleatorio que puede ser 1 o 0 con igual probabilidad, si es 1 retorna -1 y si es 0 retorna 1.
+int* random_step(int dimension, int *r)//esta funcion da un numero aleatorio que puede ser 1 o 0 con igual probabilidad, si es 1 retorna -1 y si es 0 retorna 1.
 {
+  
   double step_value = 0;
-  int ii;
-  double random_number;
-  random_number = rand() % 2;
-  if (random_number == 1)
+  int random_number;
+  int number;
+  random_number = rand() % dimension;
+  number=rand() % 2;
+  if (number == 1)
     {
       step_value = -1;
+      r[random_number]+=step_value;
     }
   else
     {
       step_value = 1;
+      r[random_number]+=step_value;
     }
   
-  return step_value;
+  return 0;
 }
