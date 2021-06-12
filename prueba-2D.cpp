@@ -9,7 +9,7 @@ int* random_step(int dimension, int *r);//función que determina el avance del c
 int main(int argc, char **argv)
 {
   int dimension=2; //dimensiones a utilizar
-  int total_steps=20; //cantidad de pasos a llevar a cabo, en un futuro se podría implementar un while y que se desarrolle hasta que el caminante quede encerrado, además de que aún no se ha implementado un "marco" dónde encerrar al caminante
+  int total_steps=200; //cantidad de pasos a llevar a cabo, en un futuro se podría implementar un while y que se desarrolle hasta que el caminante quede encerrado, además de que aún no se ha implementado un "marco" dónde encerrar al caminante
   int history [total_steps][dimension]={};//este es el array que guarda los puntos para que no se repitan
   int aux_position [dimension]={};//este array es un auxiliar que almacena el nuevo paso antes de enviarlo a position, la motivación detrás de esto se explicará más adelante
   int position [dimension]={};//este array es la posicion del caminante en un momento dado
