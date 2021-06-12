@@ -32,7 +32,7 @@ int main(int argc, char **argv)
 	      proof=0;//si no hay coincidencia proof sigue siendo 0
 	    }
 	}
-      std::cout<<"proof"<<"\t"<<proof<<std::endl;//esto cout se puso con proposito de visualizar que el sistema funcionaba
+      //std::cout<<"proof"<<"\t"<<proof<<std::endl;//esto cout se puso con proposito de visualizar que el sistema funcionaba
       if(proof==1)//si proof=1 (es decir, se dió una posición repetida)
 	{
 	  proof=0;//se inicializa proof=0 
@@ -56,11 +56,11 @@ int main(int argc, char **argv)
         
 
 	  //std::cout<<"aux position"<<"\t"<<aux_position[0]<<"\t"<<aux_position[1]<<std::endl;
-	  std::cout<<"position"<<"\t"<<position[0]<<"\t"<<position[1]<<std::endl;
+	  //std::cout<<"position"<<"\t"<<position[0]<<"\t"<<position[1]<<std::endl;
 	}
     }
 
-  std::cout<<"--------------------------------------"<<std::endl; //acá se imprime el historial por propositos de prueba, ya que en el historial si quedan registradas las repeticiones, entonces así se puede saber si las posiciones repetidas si fueron descartadas en el ciclo anterior.
+  //std::cout<<"--------------------------------------"<<std::endl; //acá se imprime el historial por propositos de prueba, ya que en el historial si quedan registradas las repeticiones, entonces así se puede saber si las posiciones repetidas si fueron descartadas en el ciclo anterior.
   
   for(int ii=0; ii<total_steps+1; ++ii)
     {
