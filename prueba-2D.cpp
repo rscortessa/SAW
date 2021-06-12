@@ -56,7 +56,7 @@ int main(int argc, char **argv)
         
 
 	  //std::cout<<"aux position"<<"\t"<<aux_position[0]<<"\t"<<aux_position[1]<<std::endl;
-	  //std::cout<<"position"<<"\t"<<position[0]<<"\t"<<position[1]<<std::endl;
+	  std::cout<<"\t"<<position[0]<<"\t"<<position[1]<<std::endl;
 	}
     }
 
@@ -66,7 +66,7 @@ int main(int argc, char **argv)
     {
       for(int jj=0; jj<dimension; ++jj)
 	{
-	  std::cout<<history[ii][jj]<<"\t";
+	  //std::cout<<history[ii][jj]<<"\t";
 	}
       std::cout<<std::endl;
     }
