@@ -1,12 +1,14 @@
-random_pah.pdf: plot.gp datos.txt
+S=200000
+
+random_path2D.pdf: plot.gp datos.txt
 	gnuplot $<
 	xpdf $@ &
 
-%.x: %.cpp
+path3D.x: path3D.cpp
 	g++ $< -o $@
 
-datos.txt: prueba-2D.x
-	./$< > $@
+datos.txt: path3D.x
+	./$< $(S) > $@
 
 clean:
 	rm *.x *.out *.txt *.pdf
