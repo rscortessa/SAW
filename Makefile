@@ -1,14 +1,15 @@
-S=200000
+S=30
+W=100
 
-random_path2D.pdf: plot.gp datos.txt
+self_avoiding_walk2_0log.pdf: plot.gp datos.txt
 	gnuplot $<
 	xpdf $@ &
 
-path3D.x: path3D.cpp
+self_avoiding_walk2_0.x: self_avoiding_walk2_0.cpp
 	g++ $< -o $@
 
-datos.txt: path3D.x
-	./$< $(S) > $@
+datos.txt: self_avoiding_walk2_0.x
+	./$< $(S) $(W) > $@
 
 clean:
 	rm *.x *.out *.txt *.pdf

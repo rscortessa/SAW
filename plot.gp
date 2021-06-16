@@ -1,17 +1,21 @@
 set style data linespoints
-set xlabel "x"; set ylabel "y"; set zlabel "z"
+set xlabel "n steps"; set ylabel "<R²>"
+set logscale x 5; set logscale y 10
 set key left top
 set term pdf
 show style data
-set out "3Drandom_path.pdf"
+set out "self_avoiding_walk2_0log.pdf"
 set title "Random Path"
-splot "3Drandom_path.txt" u 1:2:3 linecolor "black" pt 7 ps 0.4 notitle,\
-"3Drandom_path.txt" u 1:2:3 w lines title "camino" lt rgb "navy"
+plot "datos.txt" u 1:2 linecolor "black" pt 7 ps 0.4 notitle,\
+"datos.txt" u 1:2 w lines title "camino" lt rgb "navy"
+unset logscale x; unset logscale y
 unset output
-set output "2Drandom_path.pdf"
-set xlabel "x"; set ylabel "y"
+set xlabel "n steps"; set ylabel "<R²>"
+set key left top
+set term pdf
+show style data
+set out "self_avoiding_walk2_0.pdf"
 set title "Random Path"
-splot "2Drandom_path.txt" u 1:2 linecolor "black" pt 7 ps 0.4 notitle,\
-"2Drandom_path.txt" u 1:2 w lines title "camino" lt rgb "navy"
-unset output
+plot "datos.txt" u 1:2 linecolor "black" pt 7 ps 0.4 notitle,\
+"datos.txt" u 1:2 w lines title "camino" lt rgb "navy"
 unset terminal
