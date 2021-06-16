@@ -133,6 +133,6 @@ double average(int dimension, int total_steps, int walks, int *aux_position, int
     //std::cout<<prom[ww]<<std::endl;
   }
 
-  double ave=sum/walks;
+  double ave=sum/(walks-1);
   return ave;
 }
