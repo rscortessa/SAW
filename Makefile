@@ -1,5 +1,5 @@
-S=30
-W=101
+S=100
+W=100
 
 self_avoiding_walk2_0log.pdf: plot.gp datos.txt
 	gnuplot $<
