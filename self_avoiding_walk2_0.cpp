@@ -103,7 +103,7 @@ double final_position(int dimension, int total_steps, int *aux_position, int *po
 	  aux_position[1]=position[1];
 	  continue;
 	}
-      else//si proof=0 (No hay posición repetida), se puede dar al array position los valores del nuevo paso (array aux_position) y se procede a imprimirlos y a registrarlos en el historial
+      else//si proof=0 (no hay posición repetida), se puede dar al array position los valores del nuevo paso (array aux_position) y se procede a imprimirlos y a registrarlos en el historial
 	{
 
 	  position[0]=aux_position[0];
