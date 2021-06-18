@@ -5,9 +5,9 @@ int main ()
   jungle snakes(P);
   for(int i=0;i<t;i++)
     {
-      for(int i=0;i<P;i++)
+      for(int ii=0;ii<P;ii++)
 	{
-      random_step(N,snakes[i]);
+      random_step(N,snakes[ii]);
         }
     }
   for(int i=2;i<t;i++)
