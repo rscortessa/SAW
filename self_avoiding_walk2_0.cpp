@@ -21,8 +21,8 @@ int main(int argc, char **argv)
 
   // for(int ii=1; ii<total_steps; ii++){
   // std::cout<<ii<<"\t"<<average(dimension, ii, walks)<<std::endl;
-}//
-  std::cout<<final_position(dimension, total_steps)<<std::endl;
+//}
+  int a=final_position(dimension, total_steps);
   //MPI_Finalize();
   return 0;
 }
