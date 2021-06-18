@@ -1,4 +1,4 @@
-S=100
+S=625
 W=100
 
 self_avoiding_walk2_0log.pdf: plot.gp datos.txt
@@ -12,4 +12,4 @@ datos.txt: self_avoiding_walk2_0.x
 	./$< $(S) $(W) > $@
 
 clean:
-	rm *.x *.out *.txt *.pdf
+	rm *.x *.out *.txt
