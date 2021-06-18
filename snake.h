@@ -7,8 +7,11 @@
 #include<iostream>
 #include<algorithm>
 int N=4;
+int P=100;
+int t=100;
 typedef std::vector<int> data_r;
 typedef std::vector<data_r> walkers;
+
 class snake
 {
  private:
@@ -22,10 +25,11 @@ class snake
   inline walkers obtener_History(void) {return History;};
   void  sumar_r(data_r &dr);
   void print_r(void);
-  void print_History(void);
-  
+  void print_History(void);  
 };
+typedef std::vector<snake> jungle;
 void random_stepe(int dimension,snake &f);
+double promedio_r(jungle & snakes, int paso);
 void snake::sumar_r(data_r &dr)
 {
   data_r aux =obtener_r();

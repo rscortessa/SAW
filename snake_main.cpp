@@ -2,16 +2,17 @@
 #include "snake.cpp"
 int main ()
 {
-  snake Caminante1;
-  snake Caminante2;
-  
-   Caminante1.print_r();
-     Caminante2.print_r();
-  for(int i=0;i<1000;i++)
+  jungle snakes(P);
+  for(int i=0;i<t;i++)
     {
-      random_step(N,Caminante1);
-      Caminante1.print_r();
-
+      for(int i=0;i<P;i++)
+	{
+      random_step(N,snakes[i]);
+        }
+    }
+  for(int i=2;i<t;i++)
+    {
+      std::cout<<i<<"\t"<<promedio_r(snakes,i)<<std::endl;
     }
   return 0;
 }

@@ -30,4 +30,25 @@ void random_step(int dimension,snake &f)
     }
  
 }
+double promedio_r(jungle & snakes, int paso)
+{
+  double prom;
+  double count;
+  for(auto x : snakes)
+    {
+      walkers aux=x.obtener_History();
+      if(aux.size()<paso)
+	{
+	}
+      else
+	{
+	  count=+1;
+	  for(auto y : aux[paso-1])
+	    {
+	      prom+=y*y;
+	    }
+	}
+    }
+  return prom/count;
+}
 
