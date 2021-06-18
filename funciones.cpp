@@ -71,12 +71,13 @@ double final_position(int dimension, int total_steps)
 	  history[ii+1][0] = position[0];
 	  history[ii+1][1] = position[1];
 
-    //std::cout<<position[0]<<"\t"<<position[1]<<std::endl;
+    std::cout<<position[0]<<"\t"<<position[1]<<std::endl;
+    
 	}
     }
-
-  R=position[0]*position[0]+position[1]*position[1];
-  return R;
+  return 0;
+  //  R=position[0]*position[0]+position[1]*position[1];
+  // return R;
 }
 
 double average(int dimension, int total_steps, int walks)
