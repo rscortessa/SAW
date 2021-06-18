@@ -42,7 +42,7 @@ double promedio_r(jungle & snakes, int paso)
 	}
       else
 	{
-	  count=+1;
+	  count+=1;
 	  for(auto y : aux[paso-1])
 	    {
 	      prom+=y*y;
