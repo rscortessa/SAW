@@ -8,7 +8,7 @@
 #include<algorithm>
 int N=4;
 int P=100;
-int t=100;
+int t=1000;
 typedef std::vector<int> data_r;
 typedef std::vector<data_r> walkers;
 

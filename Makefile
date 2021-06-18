@@ -1,15 +1,15 @@
 S=625
 W=100
 
-self_avoiding_walk2_0log.pdf: plot.gp datos.txt
+snakelog.pdf: plot.gp snake.txt
 	gnuplot $<
 	xpdf $@ &
 
-self_avoiding_walk2_0.x: self_avoiding_walk2_0.cpp
-	g++ $< -o $@
+snake.x: snake_main.cpp
+	g++ -g $< -o $@
 
-datos.txt: self_avoiding_walk2_0.x
-	./$< $(S) $(W) > $@
+snake.txt: snake.x
+	./$< > $@
 
 clean:
 	rm *.x *.out *.txt
