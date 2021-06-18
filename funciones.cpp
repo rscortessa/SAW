@@ -2,6 +2,8 @@
 #include <time.h>
 #include <stdio.h>
 #include <cmath>
+#include <funciones.h>
+
 int* random_step(int dimension, int *r)
 {
   
