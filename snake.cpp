@@ -1,5 +1,6 @@
 #include <iostream>
-#include <time.h>
+//#include <time.h>
+#include <random>
 #include <stdio.h>
 #include <cmath>
 #ifndef _RANDOM_H_
@@ -8,13 +9,16 @@
 #endif
 void random_step(int dimension,snake &f)
 {
-  
+
   data_r dr(dimension,0);
   double step_value = 0;
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_int_distribution<> distrib(3,100);
   int random_number;
   int number;
-  random_number = rand() % dimension;
-  number=rand() % 2;
+  random_number = distrib(gen) % dimension;
+  number= distrib(gen) % 2;
   if (number == 1)
     {
      
