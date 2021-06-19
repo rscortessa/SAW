@@ -12,7 +12,11 @@ int main ()
     }
   for(int i=2;i<t;i++)
     {
-      std::cout<<i<<"\t"<<promedio_r(snakes,i)<<std::endl;
-    }
+      data_r resultados=promedios(snakes,i);
+      if(resultados[0]!=0)
+	{
+      std::cout<<i<<"\t"<<resultados[1]<<"\t"<<resultados[0]<<std::endl;
+        }
+	}
   return 0;
 }

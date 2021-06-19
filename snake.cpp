@@ -55,4 +55,28 @@ double promedio_r(jungle & snakes, int paso)
     }
   return prom/count;
 }
+data_r promedios(jungle & snakes, int paso)
+{
+  std::vector<double> prom(2,0);
+  for(auto x : snakes)
+    {
+      walkers aux=x.obtener_History();
+      if(aux.size()<paso)
+	{
+	}
+      else
+	{
+	  prom[0]+=1;
+	  for(auto y : aux[paso-1])
+	    {
+	      prom[1]+=y*y;
+	    }
+	}
+    }
+  if(prom[0]!=0)
+    {
+  prom[1]/=prom[0];
+    }
+  return prom;
+}
 
