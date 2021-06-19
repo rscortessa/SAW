@@ -6,10 +6,10 @@
 #include<vector>
 #include<iostream>
 #include<algorithm>
-int N=4;
+int N=3;
 int P=100;
-int t=100;
-typedef std::vector<int> data_r;
+int t=1000;
+typedef std::vector<double> data_r;
 typedef std::vector<data_r> walkers;
 
 class snake
@@ -28,7 +28,7 @@ class snake
   void print_History(void);  
 };
 typedef std::vector<snake> jungle;
-void random_stepe(int dimension,snake &f);
+void random_step(int dimension,snake &f);
 double promedio_r(jungle & snakes, int paso);
 void snake::sumar_r(data_r &dr)
 {
