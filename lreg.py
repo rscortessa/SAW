@@ -29,6 +29,14 @@ for line in archivo_datos:
 colmil_1 = np.array(colmil_1).reshape((-1, 1))
 colmil_2 = np.array(colmil_2)
 
+plt.scatter(colmil_1, colmil_2, label= "Average", color= "green", marker= "+", s=30)
+plt.xlabel('n steps')
+plt.xscale("log")
+plt.ylabel('<R²>')
+plt.yscale("log")
+plt.title('Random Path: Linear Regression')
+plt.show()
+
 D100 = len(col100_1)
 Dmil = len(colmil_1)
 
@@ -55,13 +63,6 @@ slope = model.coef_
 
 
 #y= slope*x+intercept
-
-plt.scatter(colmil_1, colmil_2, label= "Average", color= "green", marker= "+", s=30)
-plt.xlabel('n steps')
-plt.ylabel('<R²>')
-plt.title('Random Path: Linear Regression')
-#plot.plot(x,y)
-plt.show()
 
 # Visualize
 #plt.xlabel('N steps', fontsize=s)
