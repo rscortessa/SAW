@@ -17,15 +17,17 @@ extern int N,P,t;
 
 class snake
 {
- private:
+  public:
   //No olvidar definir N
   data_r r=data_r(N,0);
   walkers History=walkers(1,data_r(N,0));
- public:
-  bool Chequear (data_r &r0);
+  bool Life=true;
+  int DeathStep=t; //se inicializa en el paso máximo para no echar la sal a la serpiente
+  
+  bool chequear (data_r &r0);
   void colocar_r (data_r &dr, bool accion);
   inline data_r obtener_r(void) {return r;};
-  inline walkers obtener_History(void) {return History;};
+  inline std::vector<data_r> obtener_History(void) {return History;};
   void  sumar_r(data_r &dr);
   void print_r(void);
   void print_History(void);  

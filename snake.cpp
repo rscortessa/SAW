@@ -1,5 +1,4 @@
-_#include <iostream>
-//#include <time.h>
+#include <iostream>
 #include <random>
 #include <stdio.h>
 #include <cmath>
@@ -7,19 +6,35 @@ _#include <iostream>
 
 void random_step(int dimension,snake &f)
 {
-
-  data_r dr(dimension,0);
-  double step_value = 0;
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_int_distribution<> distrib(1,12);
-  int random_number;
-  int number;
-  random_number = distrib(gen) % dimension;
-  number= distrib(gen) % 2;
-  step_value = -1+2*number;
-  dr[random_number]+=step_value;
-  f.sumar_r(dr);
+  if(f.Life==true)
+  {
+    data_r dr(dimension,0);
+    double step_value = 0;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> distrib(1,12);
+    int random_number;
+    int number;
+    random_number = distrib(gen) % dimension;
+    number= distrib(gen) % 2;
+    step_value = -1+2*number;
+    dr[random_number]+=step_value;
+  
+    std::vector<int> aux(3,0);
+    std::transform(f.r.begin(), f.r.end(),dr.begin() , aux.begin(), std::plus<int>());
+    bool check = f.chequear(aux);
+    if(check==true)
+    {
+      f.sumar_r(dr);
+    }
+  else{
+    random_step(dimension, f);
+  }
+  }
+    if(f.Life==false)
+    {
+      f.History.push_back(f.r);
+    }
 }
 
 
@@ -28,14 +43,11 @@ std::vector<double> promedios(jungle & snakes, int paso)
   std::vector<double> prom(3,0);
   for(auto x : snakes)
     {
-      walkers aux=x.obtener_History();
-      if(aux.size()<paso)
+
+      if(x.History.size()>=paso)
       {
-      }
-      else
-      {
-        prom[0]+=1;
-        for(auto y : aux[paso-1])
+         prom[0]+=1;
+        for(auto y : x.History[paso-1])
         {
           prom[1]+=y*y;
         }
@@ -43,9 +55,9 @@ std::vector<double> promedios(jungle & snakes, int paso)
     }
   if(prom[0]!=0)
   {
-    prom[2] = prom[1]/P; // Promedio teniendo en cuenta las muertas
+    prom[2] = prom[2]/P; // Promedio teniendo en cuenta las muertas
     prom[1] /= prom[0]; //Promedio sin tenerlas en cuenta
-    prom[0] /= P;    //Proporcion vivas a totalp
+    prom[0] /= P;    //Proporcion vivas a total P
   }
   
   
@@ -54,16 +66,11 @@ std::vector<double> promedios(jungle & snakes, int paso)
 
 void snake::sumar_r(data_r &dr)
 {
-  data_r aux =obtener_r();
-  std::transform (aux.begin(), aux.end(), dr.begin(), aux.begin(), std::plus<double>());
-  
-  if(Chequear(aux)==true)
-    {
-  std::transform (r.begin(), r.end(), dr.begin(), r.begin(), std::plus<double>());
-    }
-  
+  std::transform (r.begin(), r.end(), dr.begin(), r.begin(), std::plus<int>());
 }
-bool snake::Chequear(data_r &r0)
+
+
+bool snake::chequear(data_r &r0)
 {
   bool conocer=true;
   for(int ii=History.size()-1; ii >= 0 ; ii--)

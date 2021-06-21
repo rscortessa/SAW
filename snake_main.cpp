@@ -1,11 +1,12 @@
 #include <iostream>
 #include<vector>
 #include "snake.h"
-int N=3;
-int P=12;
-int t=1000;
-int main ()
+int N=3; //dimensio
+int P=12; // Tamaño de la muestra
+int t=1000; //pasos
+int main (int argc, char** argv)
 {
+ // N=std::atoi(argv[1]);
   jungle snakes(P);
   for(int i=0;i<t;i++)
   {
