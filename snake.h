@@ -22,15 +22,15 @@ class snake
   data_r r=data_r(N,0);
   walkers History=walkers(1,data_r(N,0));
   bool Life=true;
-  int DeathStep=t; //se inicializa en el paso máximo para no echar la sal a la serpiente
-  
-  bool chequear (data_r &r0);
+  int DeathDate=t;//se inicializa en el paso máximo para no echar la sal a la serpiente
+    
+  void chequear(std::vector<std::vector<int>> & available_directions);
   void colocar_r (data_r &dr, bool accion);
   inline data_r obtener_r(void) {return r;};
   inline std::vector<data_r> obtener_History(void) {return History;};
-  void  sumar_r(data_r &dr);
   void print_r(void);
-  void print_History(void);  
+  void print_History(void);
+  
 };
 
 typedef std::vector<snake> jungle;
