@@ -14,7 +14,8 @@ void random_step(int dimension,snake &f)
       f.chequear(available_directions);
       if(f.Life==true)
       {
-        std::mt19937 gen(time(NULL));
+        std::random_device r;
+        std::mt19937 gen(r());
         std::uniform_int_distribution<> distrib(0, available_directions.size()-1);
         int rando = distrib(gen);
         std::transform (f.r.begin(), f.r.end(), available_directions[rando].begin(), f.r.begin(), std::plus<int>());
@@ -58,7 +59,7 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions)
 {
   int tamanho= available_directions.size();
   int counter=tamanho;
-  std::vector<std::vector<int>> hypo(tamanho); //hypothetic vectors
+  std::vector<std::vector<int>> hypo(tamanho,std::vector<int>(N,0)); //hypothetic vectors
   
   for(int ii=0; ii< tamanho; ii++) // this for sums the possible directions with r to later comparisson with history
   {
