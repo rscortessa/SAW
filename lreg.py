@@ -27,7 +27,7 @@ colmil_4 = np.array(colmil_4)
 plt.figure(1)
 plt.scatter(colmil_1, colmil_3, label= "Lifetime", color= "green", marker= "+", s=20)
 plt.xlabel('time (n steps)')
-plt.ylabel('Lifetime(alive/total)')
+plt.ylabel('% (alive/total)')
 plt.title('Lifetime')
 plt.grid()
 plt.savefig('Lifesnake.pdf')
@@ -69,12 +69,12 @@ LR_1 = LinearR(colmil_1, colmil_2)
 LR_2 = LinearR(colmil_1, colmil_4)
 
 #Finally, the linear regression is graphed...
-x = np.arange(2, 100, 0.1)
-#according to log-log scale
+x = np.arange(2, 200, 0.1)
+#... according to log-log scale
 y_12 = (10**LR_1[1])*(x**LR_1[2])
 y_14 = (10**LR_2[1])*(x**LR_2[2])
 
-#plt.plot(x, y_12, color='green', label='Linear regression')
+plt.plot(x, y_12, color='green', label='Linear regression')
 #plt.plot(x, y_14, color='red', label='Linear regression')
 plt.legend()
 plt.grid()
