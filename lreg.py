@@ -23,9 +23,19 @@ colmil_2 = np.array(colmil_2)
 colmil_3 = np.array(colmil_3)
 colmil_4 = np.array(colmil_4)
 
+#Lifetime
+plt.figure(1)
+plt.scatter(colmil_1, colmil_3, label= "Lifetime", color= "green", marker= "+", s=20)
+plt.xlabel('time (n steps)')
+plt.ylabel('Lifetime(alive/total)')
+plt.title('Lifetime')
+plt.grid()
+plt.savefig('Lifesnake.pdf')
+
 #Column data is plotted with points
-plt.scatter(colmil_1, colmil_2, label= "Expected value", color= "green", marker= "+", s=30)
-plt.scatter(colmil_1, colmil_4, label= "Expected radius", color= "red", marker= "*", s=30)
+plt.figure(2)
+plt.scatter(colmil_1, colmil_2, label= "Expected value", color= "green", marker= "+", s=20)
+plt.scatter(colmil_1, colmil_4, label= "Expected radius", color= "red", marker= "*", s=20)
 plt.xlabel('n steps')
 plt.xscale("log")
 #plt.semilogx(base=5)
@@ -43,32 +53,29 @@ for jj in range(0, Dim):
 
 
 #Here we have the coefficients about linear regression
-model = LinearRegression()
-model.fit(colmil_1, colmil_2)
-model = LinearRegression().fit(colmil_1, colmil_2)
-r_sq_12 = model.score(colmil_1, colmil_2)
-intercept_12 = model.intercept_
-slope_12 = model.coef_
+def LinearR(col_1, col_2):
+    model = LinearRegression()
+    model.fit(col_1, col_2)
+    model = LinearRegression().fit(col_1, col_2)
+    r_sq = model.score(colmil_1, colmil_2)
+    intercept = model.intercept_
+    slope = model.coef_
+    COEF = [r_sq , intercept , slope]
+    COEF = np.array(COEF)
+    return COEF
 
-model = LinearRegression()
-model.fit(colmil_1, colmil_4)
-model = LinearRegression().fit(colmil_1, colmil_4)
-r_sq_14 = model.score(colmil_1, colmil_4)
-intercept_14 = model.intercept_
-slope_14 = model.coef_
-#print('coefficient of determination:', r_sq)
-#print('slope:', slope)
-#print('intercept:', intercept)
+
+LR_1 = LinearR(colmil_1, colmil_2)
+LR_2 = LinearR(colmil_1, colmil_4)
 
 #Finally, the linear regression is graphed...
-x = np.arange(2, 1000, 0.1)
+x = np.arange(2, 100, 0.1)
 #according to log-log scale
-y_12 = (10**intercept_12)*(x**slope_12)
-y_14 = (10**intercept_14)*(x**slope_14)
+y_12 = (10**LR_1[1])*(x**LR_1[2])
+y_14 = (10**LR_2[1])*(x**LR_2[2])
 
-plt.plot(x, y_12, color='blue', label='Linear regression')
-plt.plot(x, y_12, color='orange', label='Linear regression')
+#plt.plot(x, y_12, color='green', label='Linear regression')
+#plt.plot(x, y_14, color='red', label='Linear regression')
 plt.legend()
 plt.grid()
 plt.savefig('linearsnake.pdf')
-#plt.show()

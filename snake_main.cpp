@@ -2,10 +2,12 @@
 #include<vector>
 #include "snake.h"
 int N=3; //dimensio
-int P=12; // Tamaño de la muestra
+int P=100; // Tamaño de la muestra
 int t=1000; //pasos
 int main (int argc, char** argv)
 {
+  std::cout.precision(7);
+  std::cout.setf(std::ios::scientific);
   N=std::atoi(argv[1]);
   jungle snakes(P);
   for(int i=0;i<t;i++)
@@ -20,7 +22,7 @@ int main (int argc, char** argv)
     std::vector<double> resultados=promedios(snakes,i);
     if(resultados[0]!=0)
     {
-      std::cout<<i<<"\t"<<resultados[1]<<"\t"<<resultados[0]<<"\t"<< resultados[2] << std::endl;
+      std::cout<<i<<" \t "<<resultados[1]<<" \t "<<resultados[0]<<" \t "<< resultados[2] << std::endl;
     }
 	}
   return 0;

@@ -2,7 +2,6 @@ S=2
 
 linearsnake.pdf: lreg.py snake.txt
 	python3 lreg.py &
-	sleep 8
 	xpdf $@ &
 
 snake.x: snake_main.cpp snake.h snake.cpp
