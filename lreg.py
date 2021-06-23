@@ -1,72 +1,74 @@
-#import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 import math
 
-archivo_datos = open('snake100.txt','r')
-
-col100_1 = []
-col100_2 = []
-for line in archivo_datos:
-    data = line.split('\t')
-    col100_1.append(float(data[0]))
-    col100_2.append(float(data[1]))
-
-col100_1 = np.array(col100_1)
-col100_2 = np.array(col100_2)
-
-
-archivo_datos = open('snakemil.txt','r')
+#Reading of txt files by columns
+archivo_datos = open('snake.txt','r')
 
 colmil_1 = []
 colmil_2 = []
+colmil_3 = []
+colmil_4 = []
+#Column data is saved in arrays
 for line in archivo_datos:
     data = line.split('\t')
     colmil_1.append(float(data[0]))
     colmil_2.append(float(data[1]))
+    colmil_3.append(float(data[2]))
+    colmil_4.append(float(data[3]))
 
 colmil_1 = np.array(colmil_1).reshape((-1, 1))
 colmil_2 = np.array(colmil_2)
+colmil_3 = np.array(colmil_3)
+colmil_4 = np.array(colmil_4)
 
-plt.scatter(colmil_1, colmil_2, label= "Average", color= "green", marker= "+", s=30)
+#Column data is plotted with points
+plt.scatter(colmil_1, colmil_2, label= "Expected value", color= "green", marker= "+", s=30)
+plt.scatter(colmil_1, colmil_4, label= "Expected radius", color= "red", marker= "*", s=30)
 plt.xlabel('n steps')
 plt.xscale("log")
+#plt.semilogx(base=5)
 plt.ylabel('<R²>')
 plt.yscale("log")
 plt.title('Random Path: Linear Regression')
-plt.show()
 
-D100 = len(col100_1)
-Dmil = len(colmil_1)
-
-for ii in range(0, D100):
-    col100_1[ii]=math.log(col100_1[ii],5)
-    col100_2[ii]=math.log(col100_2[ii],10)
-
-for jj in range(0, Dmil):
-    colmil_1[jj]=math.log(colmil_1[jj],5)
+#Analysis to linear regression
+Dim = len(colmil_1)
+#Array data is re-escaled to log-log scale
+for jj in range(0, Dim):
+    colmil_1[jj]=math.log(colmil_1[jj],10)
     colmil_2[jj]=math.log(colmil_2[jj],10)
+    colmil_4[jj]=math.log(colmil_4[jj],10)
 
-#print(f"{col100_1}")
 
+#Here we have the coefficients about linear regression
 model = LinearRegression()
 model.fit(colmil_1, colmil_2)
 model = LinearRegression().fit(colmil_1, colmil_2)
-r_sq = model.score(colmil_1, colmil_2)
-intercept = model.intercept_
-slope = model.coef_
+r_sq_12 = model.score(colmil_1, colmil_2)
+intercept_12 = model.intercept_
+slope_12 = model.coef_
 
+model = LinearRegression()
+model.fit(colmil_1, colmil_4)
+model = LinearRegression().fit(colmil_1, colmil_4)
+r_sq_14 = model.score(colmil_1, colmil_4)
+intercept_14 = model.intercept_
+slope_14 = model.coef_
 #print('coefficient of determination:', r_sq)
 #print('slope:', slope)
 #print('intercept:', intercept)
 
+#Finally, the linear regression is graphed...
+x = np.arange(2, 1000, 0.1)
+#according to log-log scale
+y_12 = (10**intercept_12)*(x**slope_12)
+y_14 = (10**intercept_14)*(x**slope_14)
 
-#y= slope*x+intercept
-
-# Visualize
-#plt.xlabel('N steps', fontsize=s)
-#plt.ylabel('<R²>', fontsize=s)
-#plt.scatter(X, Y)
-#plt.plot(X, Y, color='red')
+plt.plot(x, y_12, color='blue', label='Linear regression')
+plt.plot(x, y_12, color='orange', label='Linear regression')
+plt.legend()
+plt.grid()
+plt.savefig('linearsnake.pdf')
 #plt.show()
