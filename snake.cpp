@@ -9,8 +9,15 @@ void random_step(int dimension,snake &f)
 {
       std::vector<std::vector<int>> available_directions(2*N,std::vector<int>(N,0)); 
       for(int ii=0; ii< 2*N; ii++) //for 2 dim available directions would initialy be {{-1,0},{+1,0},{0,-1},{0,+1}}
-      {available_directions[ii][(int)(ii/2+0.001)]+= -1+2*(ii%2);}
-  
+      {
+	if(ii<N)
+	  {
+	available_directions[ii][ii%N]+=-1;
+          }
+      else
+	{
+	available_directions[ii][ii%N]+=+1;
+	}
       f.chequear(available_directions);
       if(f.Life==true)
       {
