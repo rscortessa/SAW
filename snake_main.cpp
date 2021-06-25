@@ -3,8 +3,8 @@
 #include "mpi.h"
 #include "snake.h"
 int N=2;//dimension
-int P=2000; // Tamaño de la muestra
-int t=1000; //pasos
+int P=1000; // Tamaño de la muestra
+int t=100; //pasos
 int main (int argc, char** argv)
 {
   MPI_Init(&argc, &argv);
