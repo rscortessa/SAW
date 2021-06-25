@@ -1,14 +1,14 @@
+np=1
 S=2
 
 linearsnake.pdf: lreg.py snake.txt
-	python3 lreg.py &
-	xpdf $@ &
+	python3 lreg.py
 
 snake.x: snake_main.cpp snake.h snake.cpp
-	g++ -g $^ -o $@
+	mpic++ $^ -o $@
 
 snake.txt: snake.x
-	./$< $(S) > $@
+	mpirun -np $(np) ./$< $(S) > $@
 
 clean:
 	rm *.x *.out *.txt

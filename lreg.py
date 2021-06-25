@@ -4,7 +4,7 @@ from sklearn.linear_model import LinearRegression
 import math
 
 #Reading of txt files by columns
-archivo_datos = open('snake.txt','r')
+archivo_datos = open('snakeMPI.txt','r')
 
 colmil_1 = []
 colmil_2 = []
@@ -75,7 +75,7 @@ x = np.arange(2, 200, 0.1)
 y_12 = (10**LR_1[1])*(x**LR_1[2])
 y_14 = (10**LR_2[1])*(x**LR_2[2])
 
-plt.plot(x, y_12, color='green', label='Linear regression')
+plt.plot(x, y_12, color='yellow', label='Linear regression')
 #plt.plot(x, y_14, color='red', label='Linear regression')
 plt.legend()
 plt.grid()
