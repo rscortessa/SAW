@@ -68,6 +68,7 @@ def LinearR(col_1, col_2):
 LR_1 = LinearR(colmil_1, colmil_2)
 LR_2 = LinearR(colmil_1, colmil_4)
 
+print(LR_1)
 #Finally, the linear regression is graphed...
 x = np.arange(2, 200, 0.1)
 #... according to log-log scale
