@@ -4,7 +4,7 @@ from sklearn.linear_model import LinearRegression
 import math
 
 #Reading of txt files by columns
-archivo_datos = open('snakeMPI.txt','r')
+archivo_datos = open('snake.txt','r')
 
 colmil_1 = []
 colmil_2 = []

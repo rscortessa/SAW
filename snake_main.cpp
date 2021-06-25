@@ -2,8 +2,9 @@
 #include <vector>
 #include "mpi.h"
 #include "snake.h"
-int N=2; //dimension
-int P=2000; // Tamaño de la muestra
+int N=2;
+int np=1;//dimension
+int P=2000/np; // Tamaño de la muestra
 int t=1000; //pasos
 int main (int argc, char** argv)
 {
@@ -12,16 +13,15 @@ int main (int argc, char** argv)
   std::cout.setf(std::ios::scientific);
 
   int pid;
-  int np;
   MPI_Comm_size(MPI_COMM_WORLD, &np);
   MPI_Comm_rank(MPI_COMM_WORLD, &pid);
   int N=std::atoi(argv[1]);
-  int p = P/np; //np preferiblemente ha de ser par
+  //int p = P/np; //np preferiblemente ha de ser par si es mayor a 1
 
-  jungle snakes(p);
+  jungle snakes(P);
   for(int i=0;i<t;i++)
   {
-    for(int ii=0;ii<p;ii++)
+    for(int ii=0;ii<P;ii++)
     {
       random_step(N,snakes[ii]);
     }
