@@ -34,12 +34,13 @@ void random_step(int dimension,snake &f)
 }
 std::vector<double> promedios(jungle & snakes, int paso)
 {
-  std::vector<double> prom(4,0);
+  std::vector<double> prom(5,0);
   for(auto x : snakes)
     {
       if(x.DeathDate==paso)
 	{
 	  prom[3]+=paso;
+	  prom[4]+=paso*paso;
 	}
       if( x.DeathDate > paso)
       {
@@ -65,6 +66,7 @@ std::vector<double> promedios(jungle & snakes, int paso)
     prom[1] /= prom[0]; //Promedio sin tenerlas en cuenta
     prom[0]= 1-prom[0]/P;    //Proporcion muertas a total P
     prom[3]/=P;
+    prom[4]/=P;
   }
   else
     {
@@ -72,6 +74,7 @@ std::vector<double> promedios(jungle & snakes, int paso)
     prom[1]=0; //Promedio sin tenerlas en cuenta
     prom[0]= 1;    //Proporcion muertas a total P
     prom[3]/=P;
+    prom[4]/=P;
     }
  
   return prom;
@@ -129,16 +132,16 @@ void snake::print_History(void)
   std::cout<<std::endl;
  }
 
-double print_promedios(int t,jungle snakes,std::string a, int pid, int np)
+std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, int np)
  {
    std::ofstream print;
-   double lifetime;
+   std::vector<double> lifetime(2,0);
    print.open(a);
    for(int i=2;i<t;i++)
   {
     std::vector<double> resultados=promedios(snakes,i);
     std::vector<double> average=resultados;
-    MPI_Reduce(&resultados[0], &average[0], 4, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    MPI_Reduce(&resultados[0], &average[0], 5, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     int stop=0;
     int max=0;
     if(resultados[1]==0)
@@ -149,10 +152,11 @@ double print_promedios(int t,jungle snakes,std::string a, int pid, int np)
      if(pid==0){ if (max>0 || std::abs(average[0]-np)<0.01) break;}
      if(pid==0)
       {
-	 lifetime+=average[3];
+	 lifetime[0]+=average[3]/np;
+	 lifetime[1]+=average[4]/np;
 	 print<<i<<" \t "<<average[1]/np<<" \t "<<average[0]/np<<" \t "<< average[2]/np<< std::endl;
       }
   }
    print.close();
-   return lifetime/np;
+   return lifetime;
  }

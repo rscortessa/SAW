@@ -39,10 +39,11 @@ int main (int argc, char** argv)
 	if (snakes[ii].Life==true) random_step(N,snakes[ii]);
       }
   }
-  double lifetime=print_promedios(t,snakes,"snake"+std::to_string(N)+".txt",pid,np);
+  std::vector<double> lifetime=print_promedios(t,snakes,"snake"+std::to_string(N)+".txt",pid,np);
+
   if(pid==0)
     {
-  std::cout<<N<<"\t"<<lifetime<<std::endl;
+      std::cout<<N<<"\t"<<lifetime[0]<<"\t"<<lifetime[1]<<std::endl;
     }
   MPI_Finalize();
   return 0;

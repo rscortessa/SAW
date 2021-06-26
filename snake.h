@@ -8,6 +8,7 @@
 #include<tuple>
 #include<vector>
 #include<iostream>
+#include<climits>
 #include<algorithm>
 
 typedef std::vector<int> data_r;
@@ -22,7 +23,7 @@ class snake
   data_r r=data_r(N,0);
   walkers History=walkers(1,data_r(N,0));
   bool Life=true;
-  int DeathDate=100000;//se inicializa en el paso máximo para no echar la sal a la serpiente
+  int DeathDate=INT_MAX;//se inicializa en el paso máximo para no echar la sal a la serpiente
     
   void chequear(std::vector<std::vector<int>> & available_directions);
   void colocar_r (data_r &dr, bool accion);
@@ -36,6 +37,6 @@ class snake
 typedef std::vector<snake> jungle;
 void random_step(int dimension,snake &f);
 std::vector<double> promedios(jungle & snakes, int paso);
-double print_promedios(int t,jungle snakes,std::string a, int pid, int np);
+std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, int np);
 
 #endif
