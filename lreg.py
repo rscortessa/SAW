@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+from scipy.stats import beta
 import math
 from matplotlib import style
 import sys
@@ -17,9 +18,21 @@ def LinearR(col_1, col_2):
     COEF = np.array(COEF)
     return COEF
 
+
+
+
 #Reading of txt files by columns
 archivo_datos = open("snake"+EFE[0]+".txt",'r')
-
+estadistica=open("estadística.txt","r")
+var=0
+mu=0
+for line in estadistica:
+    data=line.split("\t")
+    var=float(data[2])
+    mu=float(data[1])
+A=mu*mu/var
+B=mu/var
+var=var-mu**2
 colmil_1 = []
 colmil_2 = []
 colmil_3 = []
@@ -41,10 +54,8 @@ aux=[]
 aux1=[]
 for x in np.array(colmil_3):
     if (x-0.01)>0:
-        print(x)
         aux.append(x)
 for x in range(len(colmil_3)-len(aux)+2,len(colmil_3)+2):
-    print(x)
     aux1.append(x)
 aux1=np.array(aux1).reshape((-1,1))
 colmil_4 = np.array(colmil_4)
@@ -55,18 +66,18 @@ Dim = len(colmil_1)
 for jj in range(0,len(aux)):
     aux[jj]=math.log(1-aux[jj])
 
-x = np.arange(2,140, 0.1)  
+x = np.arange(0,272,1)  
 LR_2 = LinearR(aux1,aux)
 y_14 = 1-(np.e**(x*LR_2[2]))
 print(LR_2)
 plt.figure(1)
 plt.style.use("Solarize_Light2")
-plt.plot(x, y_14, color='green', label='Linear regression')
-plt.scatter(colmil_1, colmil_3, label= "Lifetime", color= "green", marker= "+", s=20)
+plt.plot(x,beta.cdf(x,1,4,15,272), color='red', label='Linear regression')
+plt.scatter(colmil_1, colmil_3, label= "Lifetime", color= "green", marker= "*", s=20)
 plt.xlabel('time (n steps)')
 plt.ylabel('% (Deaths/total)')
 plt.title('Lifetime')
-plt.text(50,0.8,r"$\langle T \rangle =55(2)[n]$",fontsize=12)
+plt.text(10,0.8,r"$\langle T \rangle ="+str(beta.mean(1,4)*(272)+15)+"(2)[n]$",fontsize=12)
 plt.legend()
 plt.grid()
 plt.savefig("Lifesnake"+EFE[0]+".pdf")
