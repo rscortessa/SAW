@@ -37,20 +37,31 @@ for line in archivo_datos:
 colmil_1 = np.array(colmil_1).reshape((-1, 1))
 colmil_2 = np.array(colmil_2)
 colmil_3 = np.array(colmil_3)
-aux=np.array(colmil_3)
+aux=[]
+aux1=[]
+for x in np.array(colmil_3):
+    if (x-0.01)>0:
+        print(x)
+        aux.append(x)
+for x in range(len(colmil_3)-len(aux)+2,len(colmil_3)+2):
+    print(x)
+    aux1.append(x)
+aux1=np.array(aux1).reshape((-1,1))
 colmil_4 = np.array(colmil_4)
 #Analysis to linear regression
 Dim = len(colmil_1)
 #Lifetime
 #Array data is re-escaled to log-log scale
-for jj in range(0, Dim):
+for jj in range(0,len(aux)):
     aux[jj]=math.log(1-aux[jj])
-x = np.arange(2,100, 0.1)  
-LR_2 = LinearR(colmil_1,aux)
+
+x = np.arange(2,140, 0.1)  
+LR_2 = LinearR(aux1,aux)
 y_14 = 1-(np.e**(x*LR_2[2]))
 print(LR_2)
 plt.figure(1)
 plt.style.use("Solarize_Light2")
+plt.plot(x, y_14, color='green', label='Linear regression')
 plt.scatter(colmil_1, colmil_3, label= "Lifetime", color= "green", marker= "+", s=20)
 plt.xlabel('time (n steps)')
 plt.ylabel('% (Deaths/total)')
@@ -79,7 +90,6 @@ for jj in range(0, Dim):
     colmil_1[jj]=math.log(colmil_1[jj],10)
     colmil_2[jj]=math.log(colmil_2[jj],10)
     colmil_4[jj]=math.log(colmil_4[jj],10)
-    aux[jj]=math.log(1-colmil_3[jj])
     
 LR_1 = LinearR(colmil_1, colmil_2)
 b=float(LR_1[1])
