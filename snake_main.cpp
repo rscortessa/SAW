@@ -1,14 +1,27 @@
 #include <iostream>
 #include<vector>
+#include<cmath>
 #include "snake.h"
 int N=3; //dimensio
-int P=100; // Tamaño de la muestra
-int t=1000; //pasos
+int P=1000; // Tamaño de la muestra
+int t=150; //pasos
 int main (int argc, char** argv)
 {
   std::cout.precision(7);
   std::cout.setf(std::ios::scientific);
   N=std::atoi(argv[1]);
+  if(N==2)
+    {
+      t=150;
+    }
+  else if(N==3)
+    {
+      t=5250;
+    }
+  else if(N==4)
+    {
+      t=500000;
+    }
   jungle snakes(P);
   for(int i=0;i<t;i++)
   {
@@ -17,14 +30,8 @@ int main (int argc, char** argv)
       random_step(N,snakes[ii]);
     }
   }
-  for(int i=2;i<t;i++)
-  {
-    std::vector<double> resultados=promedios(snakes,i);
-    if(resultados[0]!=0)
-    {
-      std::cout<<i<<" \t "<<resultados[1]<<" \t "<<resultados[0]<<" \t "<< resultados[2] << std::endl;
-    }
-	}
+  std::cout<<N<<"\t"<<print_promedios(t,snakes,"snake"+std::to_string(N)+".txt")<<std::endl;
+  
   return 0;
 }
 
