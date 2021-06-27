@@ -6,7 +6,7 @@ linearsnake.pdf: lreg.py snake$S$.txt
 	python3 lreg.py $S$ &
 	xpdf $@ &
 
-metrica.pdf: plot.gp metrica.txt
+metrica.pdf: metrica.py metrica.txt
 	python3 metrica.py
 	wait
 	xpdf $@ &
