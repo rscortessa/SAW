@@ -16,7 +16,7 @@ metrica_2 = np.array(metrica_2)
 
 Dim = len(metrica_1)
 
-speedup = []
+speedup(Dim,0)
 eficiencia = []
 
 for x in range (0,metrica_1):
