@@ -1,4 +1,4 @@
-np=1
+np= {1..16}
 S=2
 P=1000
 
@@ -6,6 +6,11 @@ linearsnake.pdf: lreg.py snake$S$.txt
 	python3 lreg.py $S$ &
 	xpdf $@ &
 
+metrica.pdf: plot.gp metrica.txt
+	gnuplot plot.gp
+
+metrica.txt: snake.x
+	for i in $(np) ; do mpirun -np $$i --oversubscribe ./$< $(S) $(P) ; done > $@
 
 snake.x: snake_main.cpp snake.h snake.cpp
 	mpic++ $^ -o $@
