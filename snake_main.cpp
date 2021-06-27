@@ -2,16 +2,16 @@
 #include <vector>
 #include "mpi.h"
 #include "snake.h"
-int N=2;//dimension
-int P=1000; // Tamaño de la muestra
-int t=5000; //pasos
+
 int main (int argc, char** argv)
 {
   MPI_Init(&argc, &argv);
   std::cout.precision(7);
   std::cout.setf(std::ios::scientific);
 
-  N=std::atoi(argv[1]);
+  int t=0;
+  int N=std::atoi(argv[1]);
+  int P=std::atoi(argv[2]);
   if(N==2)
     {
       t=400;
@@ -28,8 +28,7 @@ int main (int argc, char** argv)
   int np;
   MPI_Comm_size(MPI_COMM_WORLD, &np);
   MPI_Comm_rank(MPI_COMM_WORLD, &pid);
-  int N=std::atoi(argv[1]);
-  jungle snakes(P);
+  jungle snakes(P, snake(N));
    double muertes=0;
   for(int i=0;i<t;i++)
   {
@@ -39,7 +38,7 @@ int main (int argc, char** argv)
 	if (snakes[ii].Life==true) random_step(N,snakes[ii]);
       }
   }
-  std::vector<double> lifetime=print_promedios(t,snakes,"snake"+std::to_string(N)+".txt",pid,np);
+  std::vector<double> lifetime=print_promedios(t,snakes,"snake"+std::to_string(N)+".txt",pid,np,P);
 
   if(pid==0)
     {
