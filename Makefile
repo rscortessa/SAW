@@ -13,6 +13,8 @@ snake$S$.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) > estadística.txt
 lifetime.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) >> lifetime.txt
+	touch snake.x
+lifetime.pdf:
 	python3 lifetime.py
 
 clean:
