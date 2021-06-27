@@ -20,8 +20,8 @@ speedup(Dim,0)
 eficiencia = []
 
 for x in range (0,Dim):
-    speedup [x] = metrica_2[0]/metrica_2[x]
-    eficiencia [x] = speedup[x]/metrica_1[x]
+    speedup.append (metrica_2[0]/metrica_2[x])
+    eficiencia.append (speedup[x]/metrica_1[x])
 
 speedup = np.array(speedup)
 eficiencia = np.array(eficiencia)
