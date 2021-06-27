@@ -6,8 +6,10 @@ linearsnake.pdf: lreg.py snake$S$.txt
 	python3 lreg.py $S$ &
 	xpdf $@ &
 
-metrica.pdf: plot.gp metrica.txt
-	gnuplot plot.gp
+metrica.pdf: metrica.py metrica.txt
+	python3 metrica.py
+	wait
+	xpdf $@ &
 
 metrica.txt: snake.x
 	for i in $(np) ; do mpirun -np $$i --oversubscribe ./$< $(S) $(P) ; done > $@
