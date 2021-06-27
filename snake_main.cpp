@@ -13,18 +13,7 @@ int main (int argc, char** argv)
   int t=0;
   int N=std::atoi(argv[1]);
   int P=std::atoi(argv[2]);
-  if(N==2)
-    {
-      t=400;
-    }
-  else if(N==3)
-    {
-      t=8250;
-    }
-  else
-    {
-      t=10000;
-    }
+  t=1000;
   int pid;
   int np;
   MPI_Comm_size(MPI_COMM_WORLD, &np);
@@ -46,16 +35,16 @@ int main (int argc, char** argv)
   double time1 = t1-t0;
   std::vector<double> lifetime=print_promedios(t,snakes,"snake"+std::to_string(N)+".txt",pid,np,PP);
 
-  /*if(pid==0)
+  if(pid==0)
     {
       std::cout<<N<<"\t"<<lifetime[0]<<"\t"<<lifetime[1]<<std::endl;
-    }*/
+    }
   double t2 = MPI_Wtime();
   double time2 = t2-t0;
 
-  if(pid == 0){
+  /*if(pid == 0){
     std::cout << np << "\t"  << time2 << std::endl;
-  }
+    }*/
 
 
 
