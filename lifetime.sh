@@ -1,10 +1,9 @@
- #!/bin/bash
+#!/bin/bash
 # Basic while loop
 counter=2
-np=5
-while [ $counter -le 10 ]
+while [ $counter -le 7 ]
 do
-    make lifetime.txt S=$counter np=$5
+    make lifetime.txt S=$counter
     wait
 ((counter++))
 done
