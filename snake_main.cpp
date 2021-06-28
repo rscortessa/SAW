@@ -28,17 +28,19 @@ int main (int argc, char** argv)
   int np;
   MPI_Comm_size(MPI_COMM_WORLD, &np);
   MPI_Comm_rank(MPI_COMM_WORLD, &pid);
-  jungle snakes(P, snake(N));
-   double muertes=0;
+    int PP=P/np;
+  jungle snakes(PP, snake(N));
+  double muertes=0;
+
   for(int i=0;i<t;i++)
   {
    
-    for(int ii=0;ii<P;ii++)
+    for(int ii=0;ii<PP;ii++)
       {
 	if (snakes[ii].Life==true) random_step(N,snakes[ii]);
       }
   }
-  std::vector<double> lifetime=print_promedios(t,snakes,"snake"+std::to_string(N)+".txt",pid,np,P);
+  std::vector<double> lifetime=print_promedios(t,snakes,"snake"+std::to_string(N)+".txt",pid,np,PP);
 
   if(pid==0)
     {

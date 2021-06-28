@@ -44,7 +44,7 @@ std::vector<double> promedios(jungle & snakes, int paso, int TotS) //TotS=Total 
     }
     if( x.DeathDate > paso)
     {
-      prom[0]+=1;
+      prom[0]+=1.0;
       for(auto y : x.History[paso-1])
       {
         prom[1]+=y*y;
@@ -60,21 +60,21 @@ std::vector<double> promedios(jungle & snakes, int paso, int TotS) //TotS=Total 
     }
   }
     
-  if(prom[0]>0.001)
+  if(prom[0]>0)
   {
     prom[2] = prom[2]/TotS; // Promedio teniendo en cuenta las muertas
     prom[1] /= prom[0]; //Promedio sin tenerlas en cuenta
-    prom[0]= 1-prom[0]/TotS;    //Proporcion muertas a total P
-    prom[3]/=TotS; //E[x]
-    prom[4]/=TotS; //E[x²]
+    prom[0]= prom[0]/TotS;    //Proporcion vivas a total P
+ //   prom[3]; //will be used for finding E[x]
+ //   prom[4]; //will be used for findingE[x²]
   }
   else
     {
     prom[2] = prom[2]/TotS; // Promedio teniendo en cuenta las muertas
     prom[1]=0; //Promedio sin tenerlas en cuenta
-    prom[0]= 1;    //Proporcion muertas a total P
-    prom[3]/=TotS;
-    prom[4]/=TotS;
+    prom[0]= 0.0;    //Proporcion vivas a total P
+//    prom[3];
+  //  prom[4];
     }
  
   return prom;
@@ -132,31 +132,45 @@ void snake::print_History(void)
   std::cout<<std::endl;
  }
 
-std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, int np, int TotS)
+std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, int np, int TotS) //TotS is snakes per process
  {
    std::ofstream print;
    std::vector<double> lifetime(2,0);
    print.open(a);
    for(int i=2;i<t;i++)
   {
-    std::vector<double> resultados=promedios(snakes,i,TotS);
+    std::vector<double> resultados=promedios(snakes,i,TotS); //
     std::vector<double> average=resultados;
+
+  
+    resultados[0] = resultados[0]*TotS; //number of alive snakes PER PROCESS
+    resultados[1]=resultados[1]*resultados[0]; //esto es promedio*Num_serp_vivas, es para sacar un promedio teniendo en cuenta cuantas serp vivas hay en cada proceso, y no tomar todos como iguales
+    
     MPI_Reduce(&resultados[0], &average[0], 5, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-    int stop=0;
-    int max=0;
-    if(resultados[1]==0)
+
+    average[2] /=TotS*np;
+    average[1] /= average[0]; // Now average[0] is tot_snakes alive on the program
+    average[0] = (1-average[0])/(TotS*np); //now it is proportion death to all
+    average[3] /= TotS*np;  // this is x*prob_death(x)
+    average[4] /= TotS*np;  // this is x²*prob_deat(x)
+    
+    if(pid==0)
+    {
+      lifetime[0]+=average[3]; //lifetime will give us at the end E[x] and E[x²]
+      lifetime[1]+=average[4];
+      if (std::abs(average[0])<0.95) 
       {
-        stop+=1;
+        print<< i <<" \t "<< average[1]/np<<" \t "<< average[0]/np <<" \t "<< average[2]/np << std::endl;
       }
-     MPI_Reduce(&stop, &max, 1, MPI_INT, MPI_SUM, 0, MPI_COMM_WORLD);
-     if(pid==0){ if (max>0 || std::abs(average[0]-np)<0.01) break;}
-     if(pid==0)
-      {
-	 lifetime[0]+=average[3]/np;
-	 lifetime[1]+=average[4]/np;
-	 print<< i <<" \t "<< average[1]/np<<" \t "<< average[0]/np <<" \t "<< average[2]/np << std::endl;
-      }
+      if(average[0]>=1.0){break;}
+    }
   }
    print.close();
    return lifetime;
  }
+
+
+
+
+
+
