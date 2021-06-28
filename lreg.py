@@ -13,14 +13,10 @@ name="snake"+EFE[0]+".txt"
 colmil_1,colmil_2,colmil_3,colmil_4 =Readf(name,4)
 est="estadística.txt"
 estadistica=Readf(est,3)
-var=estadistica[1][0]
-mu=estadistica[2][0]
-
-aux=[]
-aux1=[]
-
+dimension=estadística[0][0]
+var=estadística[1][0]
+mu=estadística[2][0]
 #Column data is saved in arrays
-
 colmil_1 = np.array(colmil_1).reshape((-1, 1))
 colmil_2 = np.array(colmil_2)
 colmil_3 = np.array(colmil_3)
@@ -28,6 +24,7 @@ aux=[]
 aux1=[]
 aux2=[]
 aux3=[]
+
 for x in np.array(colmil_3):
     if (x-0.01)>0:
         aux.append(x)
