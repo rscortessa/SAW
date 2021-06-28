@@ -18,11 +18,11 @@ int main (int argc, char** argv)
     }
   else if(N==3)
     {
-      t=5250;
+      t=8250;
     }
-  else if(N==4)
+  else
     {
-      t=500000;
+      t=10000;
     }
   int pid;
   int np;
