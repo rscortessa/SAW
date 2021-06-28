@@ -5,47 +5,21 @@ from scipy.stats import beta
 import math
 from matplotlib import style
 import sys
+from funciones import LinearR
+from funciones import Readf
 EFE=sys.argv[1:]
-#Here we have the coefficients about linear regression
-def LinearR(col_1, col_2):
-    model = LinearRegression()
-    model.fit(col_1, col_2)
-    model = LinearRegression().fit(col_1, col_2)
-    r_sq = model.score(colmil_1, colmil_2)
-    intercept = model.intercept_
-    slope = model.coef_
-    COEF = [r_sq , intercept , slope]
-    COEF = np.array(COEF)
-    return COEF
-
-
-
-
 #Reading of txt files by columns
-archivo_datos = open("snake"+EFE[0]+".txt",'r')
-estadistica=open("estadística.txt","r")
-var=0
-mu=0
-for line in estadistica:
-    data=line.split("\t")
-    var=float(data[2])
-    mu=float(data[1])
-A=mu*mu/var
-B=mu/var
-var=var-mu**2
-colmil_1 = []
-colmil_2 = []
-colmil_3 = []
-colmil_4 = []
+name="snake"+EFE[0]+".txt"
+colmil_1,colmil_2,colmil_3,colmil_4 =Readf(name,4)
+est="estadística.txt"
+estadistica=Readf(est,3)
+var=estadistica[1][0]
+mu=estadistica[2][0]
+
 aux=[]
 aux1=[]
+
 #Column data is saved in arrays
-for line in archivo_datos:
-    data = line.split('\t')
-    colmil_1.append(float(data[0]))
-    colmil_2.append(float(data[1]))
-    colmil_3.append(float(data[2]))
-    colmil_4.append(float(data[3]))
 
 colmil_1 = np.array(colmil_1).reshape((-1, 1))
 colmil_2 = np.array(colmil_2)
@@ -74,7 +48,7 @@ Dim = len(colmil_1)
 x = np.arange(0,colmil_1[len(colmil_1)-1],1)  
 plt.figure(1)
 plt.style.use("Solarize_Light2")
-plt.plot(x,beta.cdf(x,1,4,15,272), color='red', label='Linear regression')
+plt.plot(x,beta.cdf(x,1,4,15,15000), color='red', label='Linear regression')
 plt.scatter(colmil_1, colmil_3, label= "Lifetime", color= "green", marker= "*", s=20)
 plt.xlabel('time (n steps)')
 plt.ylabel('% (Deaths/total)')
@@ -118,7 +92,7 @@ print(LR_1)
 #... according to log-log scale
 y_12 = (10**LR_1[1])*(x**LR_1[2])
 plt.plot(x, y_12, color='green', label='Linear regression')
-plt.text(2,10**(aux2[len(aux2)-1]),r"${\langle R^2 \rangle}_n="+str(round(np.exp(b),3))+"e^{"+str(round(m,3))+"n}$")
+plt.text(2,10**(aux2[len(aux2)-1]),r"${\langle R^2 \rangle}_n="+str(round(10**(b),3))+"n^{"+str(round(m,3))+"}$")
 plt.legend()
 plt.grid()
 plt.savefig("linearsnake"+EFE[0]+".pdf")
