@@ -3,7 +3,7 @@ S=2
 P=1000
 
 linearsnake.pdf: lreg.py snake$S$.txt
-	python3 lreg.py $S$ &
+	python3 lreg.py $(S)
 	xpdf $@ &
 
 

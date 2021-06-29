@@ -5,17 +5,20 @@ from scipy.stats import beta
 import math
 from matplotlib import style
 import sys
+import statsmodels.api as sm
 from funciones import LinearR
+from funciones import LinearR2
 from funciones import Readf
+
 EFE=sys.argv[1:]
 #Reading of txt files by columns
 name="snake"+EFE[0]+".txt"
 colmil_1,colmil_2,colmil_3,colmil_4 =Readf(name,4)
 est="estadística.txt"
 estadistica=Readf(est,3)
-dimension=estadística[0][0]
-var=estadística[1][0]
-mu=estadística[2][0]
+dimension=estadistica[0][0]
+var=estadistica[1][0]
+mu=estadistica[2][0]
 #Column data is saved in arrays
 colmil_1 = np.array(colmil_1).reshape((-1, 1))
 colmil_2 = np.array(colmil_2)
@@ -36,6 +39,7 @@ aux2=np.array(aux2).reshape((-1,1))
 for x in range(len(colmil_3)-len(aux)+2,len(colmil_3)+2):
     aux1.append(x)
 aux1=np.array(aux1).reshape((-1,1))
+aux3=np.array(aux3)
     
 colmil_4 = np.array(colmil_4)
 #Analysis to linear regression
@@ -76,19 +80,20 @@ for jj in range(0,len(aux3)):
     aux3[jj]=math.log(aux3[jj],10)
     aux2[jj]=math.log(aux2[jj],10)
 for ii in range(0,Dim):
-    print(colmil_1[ii])
+    #print(colmil_1[ii])
     colmil_1[ii]=math.log(colmil_1[ii],10)
     colmil_4[ii]=math.log(colmil_4[ii],10)
     
-LR_1 = LinearR(aux2, aux3)
-b=float(LR_1[1])
-m=float(LR_1[2])
-print(LR_1)
-#Finally, the linear regression is graphed...
+#LR_1 = LinearR(aux2, aux3)
+#b=float(LR_1[1])
+#m=float(LR_1[2])
+#print(LR_1)
+print(LinearR2(aux2, aux3))
+#print(result.fit_report()) #print a general scheme about the regression information
 
-#... according to log-log scale
+#Finally, the linear regression is graphed according to log-log scale
 y_12 = (10**LR_1[1])*(x**LR_1[2])
-plt.plot(x, y_12, color='green', label='Linear regression')
+plt.plot(x, y_12, color='blue', label='Linear regression')
 plt.text(2,10**(aux2[len(aux2)-1]),r"${\langle R^2 \rangle}_n="+str(round(10**(b),3))+"n^{"+str(round(m,3))+"}$")
 plt.legend()
 plt.grid()
