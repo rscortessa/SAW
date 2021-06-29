@@ -148,7 +148,7 @@ std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, 
     
     MPI_Reduce(&resultados[0], &average[0], 5, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
-    average[2] /=TotS*np;
+    average[2] /=np;
     average[1] /= average[0]; // Now average[0] is tot_snakes alive on the program
     average[0] = 1-average[0]/(TotS*np); //now it is proportion death to all
     average[3] /= TotS*np;  // this is x*prob_death(x)
@@ -160,7 +160,7 @@ std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, 
       lifetime[1]+=average[4];
       if (std::abs(average[0])<0.95) 
       {
-        print<< i <<" \t "<< average[1]/np<<" \t "<< average[0]/np <<" \t "<< average[2]/np << std::endl;
+        print<< i <<" \t "<< average[1]<<" \t "<< average[0]<<" \t "<< average[2]<< std::endl;
       }
       if(average[0]>=1.0){break;}
     }
