@@ -84,17 +84,18 @@ for ii in range(0,Dim):
     colmil_1[ii]=math.log(colmil_1[ii],10)
     colmil_4[ii]=math.log(colmil_4[ii],10)
     
-#LR_1 = LinearR(aux2, aux3)
-#b=float(LR_1[1])
-#m=float(LR_1[2])
-#print(LR_1)
+LR_1 = LinearR2(aux2, aux3)
+b=float(LR_1[0])
+delta_b=float(LR_1[1])
+m=float(LR_1[2])
+delta_m=float(LR_1[3])
 print(LinearR2(aux2, aux3))
 #print(result.fit_report()) #print a general scheme about the regression information
 
 #Finally, the linear regression is graphed according to log-log scale
-y_12 = (10**LR_1[1])*(x**LR_1[2])
+y_12 = (10**b)*(x**m)
 plt.plot(x, y_12, color='blue', label='Linear regression')
-plt.text(2,10**(aux2[len(aux2)-1]),r"${\langle R^2 \rangle}_n="+str(round(10**(b),3))+"n^{"+str(round(m,3))+"}$")
+plt.text(2,10**(aux2[len(aux2)-1]),r"${\langle R^2 \rangle}_n="+str(round(10**(b),2))+"\pm ("+str(round(np.log(10)*(delta_b)*10**(b),2))+")"+"n^{"+str(round(m,2))+"\pm("+str(round(delta_b,2))+")"+"}$")
 plt.legend()
 plt.grid()
 plt.savefig("linearsnake"+EFE[0]+".pdf")
