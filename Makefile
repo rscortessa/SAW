@@ -1,11 +1,17 @@
 np=1
+NP= {1..2}
 S=2
 P=1000
 
 linearsnake.pdf: lreg.py snake$S$.txt
-	python3 lreg.py $(S)
+	python3 $< $(S)
 	xpdf $@ &
 
+metrica.pdf: metrica.py metrica.txt
+	python3 $<
+
+metrica.txt: snake.x
+	for i in $(NP) ; do mpirun -np $$i --oversubscribe ./$< $(S) $(P) ; done > $@
 
 snake.x: snake_main.cpp snake.h snake.cpp
 	mpic++ $^ -o $@
