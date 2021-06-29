@@ -28,6 +28,8 @@ eficiencia = np.array(eficiencia)
 
 plt.plot(metrica_1, speedup, color='red', label='Speedup')
 plt.plot(metrica_1, eficiencia, color='blue', label='Efficiency')
+plt.xlabel('N cores')
+plt.ylabel('S & E(%)')
 plt.title("Efficiency & Speedup")
 plt.legend()
 plt.grid()
