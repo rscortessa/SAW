@@ -150,7 +150,7 @@ std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, 
 
     average[2] /=TotS*np;
     average[1] /= average[0]; // Now average[0] is tot_snakes alive on the program
-    average[0] = (1-average[0])/(TotS*np); //now it is proportion death to all
+    average[0] = 1-average[0]/(TotS*np); //now it is proportion death to all
     average[3] /= TotS*np;  // this is x*prob_death(x)
     average[4] /= TotS*np;  // this is x²*prob_deat(x)
     
