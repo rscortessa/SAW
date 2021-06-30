@@ -14,12 +14,13 @@ snake.x: snake_main.cpp snake.h snake.cpp
 
 snake$S.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) > estadística.txt
+
 lifetime.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) >> lifetime.txt
 	touch snake.x
-
 lifetime.pdf:
-	python3 lifetime.py
+	./lifetime.sh	
+	python3 dimension.py
 
 clean:
 	rm *.x *.out *.txt
