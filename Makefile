@@ -26,13 +26,16 @@ lifetime.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) $(T) >> lifetime.txt
 	touch snake.x
 lifetime.pdf:
-	rm *.txt
 	./lifetime.sh $(T)	
-	python3 dimension.py
-	mv exponente.png $(T).png
-GIF:
+	python3 dimension.py $(T)
+	mv exponente.png $(T)
+	rm *.txt
+GIF_dimension:
+	echo This is just a test > f.txt
+	rm *.txt
 	for i in $(PASOS) ; do make lifetime.pdf T=$$i ; done
 	python3 GIF.py
+	mv png_to_gif.gif dimension.gif
 
 clean:
 	rm *.x *.out *.txt

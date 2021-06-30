@@ -36,8 +36,9 @@ for i in range(2,11):
 #Lifetime
 plt.figure(1)
 plt.style.use("Solarize_Light2")
-plt.xlim(1,1.6)
-plt.scatter(dimension,exponentes,linestyle="dashed",linewidth=1, label= "Dimension"+"T="+t, color= "red", marker= "*", s=20)
+plt.ylim(0.99,1.6)
+plt.scatter(dimension,exponentes,linestyle="dashed",linewidth=1, label= "Dimension", color= "red", marker= "*", s=20)
+plt.text(9,1.4,"T="+str(t))
 plt.xlabel('Dimension')
 plt.ylabel(r'b')
 plt.yscale("log")
