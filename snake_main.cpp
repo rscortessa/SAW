@@ -10,21 +10,9 @@ int main (int argc, char** argv)
   std::cout.precision(7);
   std::cout.setf(std::ios::scientific);
 
-  int t=0;
+  int t=std::atoi(argv[3]);
   int N=std::atoi(argv[1]);
   int P=std::atoi(argv[2]);
-  if(N==2)
-    {
-      t=100;
-    }
-  else if(N==3)
-    {
-      t=100;
-    }
-  else
-    {
-      t=100;
-    }
   int pid;
   int np;
   MPI_Comm_size(MPI_COMM_WORLD, &np);

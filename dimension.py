@@ -37,5 +37,5 @@ plt.ylabel(r'b')
 plt.yscale("log")
 plt.legend()
 plt.title('Random Path: Exponent')
-plt.savefig("exponente"+".pdf")
+plt.savefig("exponente"+".png")
 #Column data is plotted with points
