@@ -1,5 +1,6 @@
 np=1 #variable inicial para controlar el número de procesos en lifetime.txt &.pdf
 NP= {1..16} #rango donde varía el número de procesos usados
+PASOS= 30 50 70 100 150
 S=2 #dimensión
 P=1000 #muestra, número de serpientes
 T=100
@@ -25,9 +26,13 @@ lifetime.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) $(T) >> lifetime.txt
 	touch snake.x
 lifetime.pdf:
+	rm *.txt
 	./lifetime.sh $(T)	
 	python3 dimension.py
 	mv exponente.png $(T).png
+GIF:
+	for i in $(PASOS) ; do make lifetime.pdf T=$$i ; done
+	python3 GIF.py
 
 clean:
 	rm *.x *.out *.txt
