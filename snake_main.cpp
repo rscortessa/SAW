@@ -14,15 +14,15 @@ int main (int argc, char** argv)
   int P=std::atoi(argv[2]);
   if(N==2)
     {
-      t=400;
+      t=100;
     }
   else if(N==3)
     {
-      t=8250;
+      t=100;
     }
   else
     {
-      t=10000;
+      t=100;
     }
   int pid;
   int np;
