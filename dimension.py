@@ -9,6 +9,11 @@ import sys
 
 #Reading of txt files by columns
 
+EFE=sys.argv[1:]
+try:
+    t=EFE[0]
+except:
+    t=""
 exponentes=[]
 dimension=[]
 #Column data is saved in arrays
@@ -31,7 +36,8 @@ for i in range(2,11):
 #Lifetime
 plt.figure(1)
 plt.style.use("Solarize_Light2")
-plt.scatter(dimension,exponentes,linestyle="dashed",linewidth=1, label= "Dimension", color= "red", marker= "*", s=20)
+plt.xlim(1,1.6)
+plt.scatter(dimension,exponentes,linestyle="dashed",linewidth=1, label= "Dimension"+"T="+t, color= "red", marker= "*", s=20)
 plt.xlabel('Dimension')
 plt.ylabel(r'b')
 plt.yscale("log")
