@@ -11,7 +11,7 @@ metrica$(S).txt: snake.x
 
 snake.x: snake_main.cpp snake.h snake.cpp
 	mpic++ $^ -o $@
-<<<<<<< HEAD
+
 snake$S.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) > estadística.txt
 lifetime.txt: snake.x
