@@ -126,4 +126,10 @@ plt.text(2,10**(aux2[len(aux2)-1]),r"${\langle R^2 \rangle}_n="+str(round(10**(b
 plt.legend()
 plt.grid()
 plt.savefig("linearsnake"+EFE[0]+".pdf")
+
 #Column data is plotted with points
+
+#Test is made to check that the value m isn't to much deviated from the expected value
+if m < 1.39 or m > 1.41:
+    print ("ADVERTENCIA: El valor calculado del exponente se encuentra desviado del valor esperado 1.4")
+    print ("Se recomienda reducir el numero de steps (t) para dos dimensiones  o revisar si la  dimension N es bastante grande y m tiende a 1")
