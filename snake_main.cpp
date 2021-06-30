@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include "mpi.h"
 #include "snake.h"
 
@@ -14,15 +15,15 @@ int main (int argc, char** argv)
   int P=std::atoi(argv[2]);
   if(N==2)
     {
-      t=400;
+      t=100;
     }
   else if(N==3)
     {
-      t=8250;
+      t=100;
     }
   else
     {
-      t=10000;
+      t=100;
     }
   int pid;
   int np;
@@ -44,10 +45,18 @@ int main (int argc, char** argv)
   std::vector<double> lifetime=print_promedios(t,snakes,"snake"+std::to_string(N)+".txt",pid,np,PP);
   double t1 = MPI_Wtime();//time sleeps
   double time = t1 - t0;
+
   if(pid==0){
-    //std::cout << np << "\t" << time << std::endl;
-    std::cout<<N<<"\t"<<lifetime[0]<<"\t"<<lifetime[1]<<std::endl;
-    }
+    std::cout.precision(7);
+    std::cout.setf(std::ios::scientific);
+    std::ofstream print;
+    print.open("estadistica.txt");
+    print <<N<<"\t"<<lifetime[0]<<"\t"<<lifetime[1]<<std::endl;
+    print.close();
+  }
+
+  if(pid==0){std::cout << np << "\t" << time << std::endl;}
+
   MPI_Finalize();
   return 0;
 }

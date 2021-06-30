@@ -1,27 +1,32 @@
-np=1
-NP= {1..16}
-S=2
-P=1000
+np=1 #variable inicial para controlar el número de procesos en lifetime.txt &.pdf
+NP= {1..16} #rango donde varía el número de procesos usados
+S=2 #dimensión
+P=1000 #muestra, número de serpientes
 
-linearsnake.pdf: lreg.py snake$S$.txt
+#aquí se usa el script lreg.py que genera todas la gráficas, regresión, lifetime y métricas
+linearsnake.pdf: lreg.py metrica$(S).txt 
 	python3 $< $(S)
-	xpdf $@ &
 
-metrica.pdf: metrica.py metrica.txt
-	python3 $<
-
-metrica.txt: snake.x
+#el archivo métricas se genera con los datos de tiempo que tarda en ejecutarse con np procesos
+#además al ejecutar ./snake.x se generan de forma automática archivos tales como snake$(S).txt y estadistica.txt
+#snake$(S).txt contiene los datos para realizar la regresión, expected value & expected radius
+#estadistica.txt contiene los datos de la vida media
+metrica$(S).txt: snake.x
 	for i in $(NP) ; do mpirun -np $$i --oversubscribe ./$< $(S) $(P) ; done > $@
 
 snake.x: snake_main.cpp snake.h snake.cpp
 	mpic++ $^ -o $@
-snake$S$.txt: snake.x
+
+snake$S.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) > estadística.txt
+
+#Se genera la grafica y regresión no lineal de la vida media died/totalsnakes
 lifetime.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) >> lifetime.txt
 	touch snake.x
 lifetime.pdf:
-	python3 lifetime.py
+	./lifetime.sh	
+	python3 dimension.py
 
 clean:
 	rm *.x *.out *.txt

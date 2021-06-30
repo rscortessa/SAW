@@ -1,11 +1,14 @@
 #!/bin/bash
 # Basic while loop
 counter=2
-while [ $counter -le 7 ]
+np=4
+P=10000
+
+while [ $counter -le 10 ]
 do
-    make lifetime.txt S=$counter
+    make S=$counter np=$np P=$P snake$counter.txt 
     wait
 ((counter++))
 done
-make lifetime.pdf
+python3 dimension.py
 echo All done
