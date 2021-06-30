@@ -19,7 +19,8 @@ lifetime.txt: snake.x
 	touch snake.x
 
 lifetime.pdf:
-	python3 lifetime.py
+	./lifetime.sh
+	python3 dimension.py
 
 clean:
 	rm *.x *.out *.txt
