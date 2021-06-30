@@ -95,7 +95,7 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions, int N
   for (int jj=History.size()-1;jj>=0;jj--){
     for (int ii=0;ii<counter;ii++){
       for(int kk=0;kk<N;kk++){
-	if (History[jj]==hypo[ii] || hypo[ii].at(N)==square || hypo[ii].at(N)==(-square)){
+	if (History[jj]==hypo[ii] || hypo[ii].at(kk)==square || hypo[ii].at(kk)==(-square)){
 	  available_directions.erase(available_directions.begin()+ii);
 	  hypo.erase(hypo.begin()+ii);
 	  counter--;
