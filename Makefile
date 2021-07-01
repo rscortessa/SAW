@@ -1,5 +1,5 @@
 np=1 #variable inicial para controlar el número de procesos en lifetime.txt &.pdf
-NP= {1..16} #rango donde varía el número de procesos usados
+NP={1..16}
 PASOS= 30 50 70 100 150
 S=2 #dimensión
 P=1000 #muestra, número de serpientes
@@ -8,12 +8,8 @@ T=100
 linearsnake.pdf: lreg.py metrica$(S).txt 
 	python3 $< $(S)
 
-#el archivo métricas se genera con los datos de tiempo que tarda en ejecutarse con np procesos
-#además al ejecutar ./snake.x se generan de forma automática archivos tales como snake$(S).txt y estadistica.txt
-#snake$(S).txt contiene los datos para realizar la regresión, expected value & expected radius
-#estadistica.txt contiene los datos de la vida media
 metrica$(S).txt: snake.x
-	for i in $(NP) ; do mpirun -np $$i --oversubscribe ./$< $(S) $(P) ; done > $@
+	for i in $(NP) ; do mpirun -np $$i --oversubscribe ./$< $(S) $(P) $(T) ; done > $@
 
 snake.x: snake_main.cpp snake.h snake.cpp
 	mpic++ $^ -o $@
