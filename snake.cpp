@@ -34,13 +34,14 @@ void random_step(int N,snake &f) //N stands for dimension
 }
 std::vector<double> promedios(jungle & snakes, int paso, int TotS) //TotS=Total snakes
 {
-  std::vector<double> prom(5,0);
+  std::vector<double> prom(6,0);
   for(auto x : snakes)
     {
       if(x.DeathDate==paso)
 	{
-	  prom[3]+=paso;
-	  prom[4]+=paso*paso;
+    prom[5]+= 1.0;
+	  prom[3]+= paso;
+	  prom[4]+= paso*paso;
 	}
       if( x.DeathDate > paso)
 	{
@@ -65,6 +66,7 @@ std::vector<double> promedios(jungle & snakes, int paso, int TotS) //TotS=Total 
       prom[2] = prom[2]/TotS; // Promedio teniendo en cuenta las muertas
       prom[1] /= prom[0]; //Promedio sin tenerlas en cuenta
       prom[0]= prom[0]/TotS;    //Proporcion vivas a total P
+      prom[5]; //number of death snakes per step
       //   prom[3]; //will be used for finding E[x]
       //   prom[4]; //will be used for findingE[x²]
     }
@@ -84,7 +86,6 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions, int N
 {
   int tamanho= available_directions.size();
   int counter=tamanho;
-  int square=5;//tamaño de la jaula
   std::vector<std::vector<int>> hypo(tamanho,std::vector<int>(N,0)); //hypothetic vectors
   
   for(int ii=0; ii< tamanho; ii++) // this for sums the possible directions with r to later comparisson with history
@@ -94,17 +95,15 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions, int N
   
   for (int jj=History.size()-1;jj>=0;jj--){
     for (int ii=0;ii<counter;ii++){
-      for(int kk=0;kk<N;kk++){
-	if (History[jj]==hypo[ii] || hypo[ii].at(kk)==square || hypo[ii].at(kk)==(-square)){
-	  available_directions.erase(available_directions.begin()+ii);
-	  hypo.erase(hypo.begin()+ii);
-	  counter--;
-	  if (counter<=0){
-	    DeathDate=History.size();
-	    Life=false;
-	    break;
-	  } //suave	  
-	}
+      if (History[jj]==hypo[ii]){
+	available_directions.erase(available_directions.begin()+ii);
+	hypo.erase(hypo.begin()+ii);
+	counter--;
+	if (counter<=0){
+	  DeathDate=History.size();
+	  Life=false;
+	  break;
+	} //suave	  
       }
     }	
   }
@@ -146,21 +145,21 @@ std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, 
       resultados[0] = resultados[0]*TotS; //number of alive snakes PER PROCESS
       resultados[1]=resultados[1]*resultados[0]; //esto es promedio*Num_serp_vivas, es para sacar un promedio teniendo en cuenta cuantas serp vivas hay en cada proceso, y no tomar todos como iguales
       
-      MPI_Reduce(&resultados[0], &average[0], 5, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+      MPI_Reduce(&resultados[0], &average[0], 6, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
       
       average[2] /=np;
       average[1] /= average[0]; // Now average[0] is tot_snakes alive on the program
       average[0] = 1-average[0]/(TotS*np); //now it is proportion death to all
       average[3] /= TotS*np;  // this is x*prob_death(x)
       average[4] /= TotS*np;  // this is x²*prob_deat(x)
-      
+      average[5] /= TotS*np;
       if(pid==0)
 	{
 	  lifetime[0]+=average[3]; //lifetime will give us at the end E[x] and E[x²]
 	  lifetime[1]+=average[4];
 	  if (std::abs(average[0])<0.95) 
 	    {
-	      print<< i <<" \t "<< average[1]<<" \t "<< average[0]<<" \t "<< average[2]<< std::endl;
+	      print<< i <<" \t "<< average[1]<<" \t "<< average[0]<<" \t "<< average[2] << "\t" << average[5]<< std::endl;
 	    }
 	  if(average[0]>=1.0){break;}
 	}
