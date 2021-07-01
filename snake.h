@@ -48,7 +48,7 @@ class snake
 };
 
 typedef std::vector<snake> jungle;
-void random_step(int dimension,snake &f, bool enclosed);
+void random_step(int dimension,snake &f, bool enclosed, int Square);
 std::vector<double> promedios(jungle & snakes, int paso, int TotS);
 std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, int np, int P);
 
