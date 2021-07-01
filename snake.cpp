@@ -84,7 +84,6 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions, int N
 {
   int tamanho= available_directions.size();
   int counter=tamanho;
-  int square=5;//tamaño de la jaula
   std::vector<std::vector<int>> hypo(tamanho,std::vector<int>(N,0)); //hypothetic vectors
   
   for(int ii=0; ii< tamanho; ii++) // this for sums the possible directions with r to later comparisson with history
@@ -94,17 +93,15 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions, int N
   
   for (int jj=History.size()-1;jj>=0;jj--){
     for (int ii=0;ii<counter;ii++){
-      for(int kk=0;kk<N;kk++){
-	if (History[jj]==hypo[ii] || hypo[ii].at(kk)==square || hypo[ii].at(kk)==(-square)){
-	  available_directions.erase(available_directions.begin()+ii);
-	  hypo.erase(hypo.begin()+ii);
-	  counter--;
-	  if (counter<=0){
-	    DeathDate=History.size();
-	    Life=false;
-	    break;
-	  } //suave	  
-	}
+      if (History[jj]==hypo[ii]){
+	available_directions.erase(available_directions.begin()+ii);
+	hypo.erase(hypo.begin()+ii);
+	counter--;
+	if (counter<=0){
+	  DeathDate=History.size();
+	  Life=false;
+	  break;
+	} //suave	  
       }
     }	
   }
