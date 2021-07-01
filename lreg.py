@@ -13,12 +13,43 @@ from funciones import Readf
 EFE=sys.argv[1:]
 #Reading of txt files by columns
 name="snake"+EFE[0]+".txt"
-colmil_1,colmil_2,colmil_3,colmil_4 =Readf(name,4)
+colmil_1,colmil_2,colmil_3,colmil_4,colmil_5 =Readf(name,5)
 est="estadistica.txt"
 estadistica=Readf(est,3)
 dimension=estadistica[0][0]
 var=estadistica[1][0]
 mu=estadistica[2][0]
+
+#Wierd distribution
+colmil_5 = np.array(colmil_5)
+plt.figure(5)
+plt.plot(colmil_1, colmil_5, color='purple', label='Alive velocity')
+plt.xlabel('N steps (time)')
+plt.ylabel('Dead distribution')
+plt.title("Deads per step")
+plt.legend()
+plt.grid()
+plt.savefig("Dead_dist.pdf")
+
+#Rapidity
+Rap_alive = []
+Rap_dead = []
+for t in range(0, len(colmil_1)):
+    Rap_alive.append(colmil_2[t]/colmil_1[t])
+    Rap_dead.append(colmil_4[t]/colmil_1[t])
+
+Rap_alive = np.array(Rap_alive)
+Rap_dead = np.array(Rap_dead)
+
+plt.figure(4)
+plt.scatter(colmil_1, Rap_alive, color='pink', label='Alive velocity', marker= "+", s=15)
+plt.scatter(colmil_1, Rap_dead, color='purple', label='Dead  velocity', marker= "^", s=15)
+plt.xlabel('N steps (time)')
+plt.ylabel('Velocity (<R²>/N)')
+plt.title("Average velocity")
+plt.legend()
+plt.grid()
+plt.savefig("Average_velocity.pdf")
 
 #Getting speedup and effiency
 meth = "metrica"+EFE[0]+".txt"
@@ -122,7 +153,7 @@ print(LinearR2(aux2, aux3))
 #Finally, the linear regression is graphed according to log-log scale
 y_12 = (10**b)*(x**m)
 plt.plot(x, y_12, color='blue', label='Linear regression')
-plt.text(2,10**(aux2[len(aux2)-1]),r"${\langle R^2 \rangle}_n="+str(round(10**(b),2))+"\pm ("+str(round(np.log(10)*(delta_b)*10**(b),2))+")"+"n^{"+str(round(m,2))+"\pm("+str(round(delta_b,2))+")"+"}$")
+plt.text(2,10**(aux2[len(aux2)-1]),r"${\langle R^2 \rangle}_n=("+str(round(10**(b),2))+"\pm ("+str(round(np.log(10)*(delta_b)*10**(b),2))+"))"+"n^{"+str(round(m,2))+"\pm("+str(round(delta_b,2))+")"+"}$")
 plt.legend()
 plt.grid()
 plt.savefig("linearsnake"+EFE[0]+".pdf")
