@@ -1,10 +1,10 @@
-np=1 #variable inicial para controlar el número de procesos en lifetime.txt &.pdf
+np=1
 NP={1..16}
 PASOS= 30 50 70 100 150
-S=2 #dimensión
-P=1000 #muestra, número de serpientes
+S=2
+P=1000
 T=100
-#aquí se usa el script lreg.py que genera todas la gráficas, regresión, lifetime y métricas
+
 linearsnake.pdf: lreg.py metrica$(S).txt 
 	python3 $< $(S)
 
@@ -15,8 +15,7 @@ snake.x: snake_main.cpp snake.h snake.cpp
 	mpic++ $^ -o $@
 
 snake$S.txt: snake.x
-	mpirun -np $(np) ./$< $(S) $(P) $(T) > estadística.txt
-#Se genera la grafica y regresión no lineal de la vida media died/totalsnakes
+	mpirun -np $(np) --oversubscribe ./$< $(S) $(P) $(T) > estadística.txt
 
 lifetime.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) $(T) >> lifetime.txt
