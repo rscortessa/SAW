@@ -109,7 +109,7 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions, int N
   }
 }
 
-void enclosed_chequear(std::vector<std::vector<int>> & available_directions, int square, int N)
+void snake::enclosed_chequear(std::vector<std::vector<int>> & available_directions, int square, int N)
 {
   int tamanho= available_directions.size();
   int counter=tamanho;
