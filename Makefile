@@ -15,16 +15,18 @@ snake.x: snake_main.cpp snake.h snake.cpp
 	mpic++ $^ -o $@
 
 snake$S.txt: snake.x
-	mpirun -np $(np) --oversubscribe ./$< $(S) $(P) $(T) > estadística.txt
+	mpirun -np $(np) --oversubscribe ./$< $(S) $(P) $(T) > estadistica.txt
 
 lifetime.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) $(T) >> lifetime.txt
 	touch snake.x
+
 lifetime.pdf:
 	./lifetime.sh $(T)	
 	python3 dimension.py $(T)
 	mv exponente.png $(T)
 	rm *.txt
+
 GIF_dimension:
 	echo This is just a test > f.txt
 	rm *.txt
