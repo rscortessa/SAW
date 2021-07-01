@@ -109,6 +109,36 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions, int N
   }
 }
 
+void enclosed_chequear(std::vector<std::vector<int>> & available_directions, int square, int N)
+{
+  int tamanho= available_directions.size();
+  int counter=tamanho;
+  int square=5;//tamaño de la jaula
+  std::vector<std::vector<int>> hypo(tamanho,std::vector<int>(N,0)); //hypothetic vectors
+
+  for(int ii=0; ii< tamanho; ii++) // this for sums the possible directions with r to later comparisson with history
+    {
+      std::transform(r.begin(), r.end(), available_directions[ii].begin(), hypo[ii].begin(), std::plus<int>());
+    }
+
+  for (int jj=History.size()-1;jj>=0;jj--){
+    for (int ii=0;ii<counter;ii++){
+      for(int kk=0;kk<N;kk++){
+        if (History[jj]==hypo[ii] || hypo[ii][kk]==Square || hypo[ii][kk]==-Square){
+          available_directions.erase(available_directions.begin()+ii);
+          hypo.erase(hypo.begin()+ii);
+          counter--;
+          if (counter<=0){
+            DeathDate=History.size();
+            Life=false;
+            break;
+          }
+        }
+      }
+    }
+  }
+}
+
 
 void snake::print_r(void)
 {
@@ -118,7 +148,7 @@ void snake::print_r(void)
     }
   std::cout<<std::endl;
 }
-void snake::print_History(void)
+void snake::print_History(void):
 {
   for(auto x : History)
     {
