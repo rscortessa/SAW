@@ -86,7 +86,7 @@ std::vector<double> promedios(const jungle & snakes, int paso, int TotS) //TotS=
 void snake::chequear(std::vector<std::vector<int>> & available_directions, int N)
 {
   int tamanho= available_directions.size();
-  int counter=tamanho;
+  int counter=tamanho; //counter checks if available directions is empty
   std::vector<std::vector<int>> hypo(tamanho,std::vector<int>(N,0)); //hypothetic vectors
   
   for(int ii=0; ii< tamanho; ii++) // this for sums the possible directions with r to later comparisson with history
@@ -97,14 +97,14 @@ void snake::chequear(std::vector<std::vector<int>> & available_directions, int N
   for (int jj=History.size()-1;jj>=0;jj--){
     for (int ii=0;ii<counter;ii++){
       if (History[jj]==hypo[ii]){
-	available_directions.erase(available_directions.begin()+ii);
-	hypo.erase(hypo.begin()+ii);
+	available_directions.erase(available_directions.begin()+ii); //Erase the useless directions on available directions
+	hypo.erase(hypo.begin()+ii); //Erase the useless directions too
 	counter--;
 	if (counter<=0){
 	  DeathDate=History.size();
-	  Life=false;
+	  Life=false; //The snake is declared death when it has no available directions to go
 	  break;
-	} //suave	  
+	} 	  
       }
     }	
   }
@@ -125,7 +125,7 @@ void snake::enclosed_chequear(std::vector<std::vector<int>> & available_directio
   for (int jj=History.size()-1;jj>=0;jj--){
     for (int ii=0;ii<counter;ii++){
       for(int kk=0;kk<N;kk++){
-        if (History[jj]==hypo[ii] || hypo[ii][kk]==square+1 || hypo[ii][kk]==-square-1){
+        if (History[jj]==hypo[ii] || hypo[ii][kk]==square+1 || hypo[ii][kk]==-square-1){ //New conditon is added to the if, this checks if the snake doesn't crash with the jail that we created
           available_directions.erase(available_directions.begin()+ii);
           hypo.erase(hypo.begin()+ii);
           counter--;
