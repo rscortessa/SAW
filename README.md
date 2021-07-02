@@ -9,5 +9,7 @@
 > * **linearsnake.pdf** archivo concerniente a la gráfica de las métricas
 > * **metrica$(S).txt** Conjunto de datos relacionados con las métricas, se debe especificar la dimensión asignandole un valor a la variable S, (make S=...)
 > * **snake.x** Es el ejecutable del código principal, necesario para generar los datos y las gráficas.
-> * **snake$S.txt** Archivo de datos referentes a las gráficas principales, los datos se organizan de la forma:
-> * * **paso** **r^2_{vivas}** **P_{death}**  **r_{muestra}^2** **p_{death}**
+> * **snake$S.txt** Archivo de datos referentes a las gráficas principales, los datos se orga nizan de la forma:
+> * * **paso** **r^2_{vivas}** **P_{death}**(Función de distribución)  **r_{muestra}^2** **p_{death}** (Función de densidad)
+> * * **aux** Es un target auxiliar utilizado para crear **dimension.gif**
+> * * **GIF_dimension** Regla para  construir dimension.gif, no hay que pasar ningún argumento por consola.
