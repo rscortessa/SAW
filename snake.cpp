@@ -33,7 +33,7 @@ void random_step(int N,snake &f, bool enclosed, int Square) //N stands for dimen
     }
   
 }
-std::vector<double> promedios(jungle & snakes, int paso, int TotS) //TotS=Total snakes
+std::vector<double> promedios(const jungle & snakes, int paso, int TotS) //TotS=Total snakes
 {
   std::vector<double> prom(6,0);
   for(auto x : snakes)
@@ -125,7 +125,7 @@ void snake::enclosed_chequear(std::vector<std::vector<int>> & available_directio
   for (int jj=History.size()-1;jj>=0;jj--){
     for (int ii=0;ii<counter;ii++){
       for(int kk=0;kk<N;kk++){
-        if (History[jj]==hypo[ii] || hypo[ii][kk]==square || hypo[ii][kk]==-square){
+        if (History[jj]==hypo[ii] || hypo[ii][kk]==square+1 || hypo[ii][kk]==-square-1){
           available_directions.erase(available_directions.begin()+ii);
           hypo.erase(hypo.begin()+ii);
           counter--;
