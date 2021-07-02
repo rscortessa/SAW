@@ -19,6 +19,6 @@ for i in imgs:
 frames[0].save('png_to_gif.gif', format='GIF',
                append_images=frames[1:],
                save_all=True,
-               duration=500, loop=1)
+               duration=90, loop=0)
  
 
