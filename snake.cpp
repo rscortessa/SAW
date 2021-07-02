@@ -6,7 +6,7 @@
 #include <fstream>
 #include "mpi.h"
 
-void random_step(int N,snake &f) //N stands for dimension
+void random_step(int N,snake &f, bool enclosed, int Square) //N stands for dimension
 {
   std::vector<std::vector<int>> available_directions(2*N,std::vector<int>(N,0)); 
   for(int ii=0; ii< 2*N; ii++) //for 2 dim available directions would initialy be {{-1,0},{+1,0},{0,-1},{0,+1}}
@@ -19,8 +19,9 @@ void random_step(int N,snake &f) //N stands for dimension
 	{
 	  available_directions[ii][ii%N]+=+1;
 	}
-    }
-  f.chequear(available_directions, N);
+  }
+  if(enclosed==false){f.chequear(available_directions, N);}
+  if(enclosed==true){f.enclosed_chequear(available_directions,N, Square);}
   if(f.Life==true)
     {
       std::random_device r;
@@ -113,7 +114,7 @@ void snake::enclosed_chequear(std::vector<std::vector<int>> & available_directio
 {
   int tamanho= available_directions.size();
   int counter=tamanho;
-  int square=5;//tamaño de la jaula
+
   std::vector<std::vector<int>> hypo(tamanho,std::vector<int>(N,0)); //hypothetic vectors
 
   for(int ii=0; ii< tamanho; ii++) // this for sums the possible directions with r to later comparisson with history
@@ -124,7 +125,7 @@ void snake::enclosed_chequear(std::vector<std::vector<int>> & available_directio
   for (int jj=History.size()-1;jj>=0;jj--){
     for (int ii=0;ii<counter;ii++){
       for(int kk=0;kk<N;kk++){
-        if (History[jj]==hypo[ii] || hypo[ii][kk]==Square || hypo[ii][kk]==-Square){
+        if (History[jj]==hypo[ii] || hypo[ii][kk]==square || hypo[ii][kk]==-square){
           available_directions.erase(available_directions.begin()+ii);
           hypo.erase(hypo.begin()+ii);
           counter--;
@@ -148,7 +149,7 @@ void snake::print_r(void)
     }
   std::cout<<std::endl;
 }
-void snake::print_History(void):
+void snake::print_History(void)
 {
   for(auto x : History)
     {
