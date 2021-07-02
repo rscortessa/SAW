@@ -29,13 +29,49 @@ int main (int argc, char** argv)
       } // each snake is stepped until it dies
   }
 
-  std::vector<std::vector<int>> graves(PP); //Death possition of our snakes
-  for(int ii=0; ii < PP ; ii++)
-  {graves.push_back(snakes[ii].r);} //as all snakes are dead, r is our death possition
 
-  
-  
+  int RealSquare=2*Square+1;
+  if(N==2)
+  {
+      std::vector<double> Grid(RealSquare*RealSquare,0.0); //GRid that represents ponts on the the square
+
+      // grid(0) is the left lower corner //grid[2*(Square+1)*2-1] is the upper right corner
+      //grid[Square*(2*Square+1)+Square-1] Represents the origin
+
+      int origin = Square*RealSquare+Square;
+      for(int ii=0; ii < PP; ii++)
+      {
+          Grid[origin + snakes[ii].r[1]*RealSquare + snakes[ii].r[0]] += 1.0;
+      }
+
+      std::vector<double> ReciveGrid(RealSquare*RealSquare,0.0);
+
+      MPI_Reduce(&Grid, &ReciveGrid, RealSquare*RealSquare, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+
+      for(auto & x: ReciveGrid){ x /= P; };
+      
+      if(pid==0)
+      {
+          for(int ii=0; ii < RealSquare; ii++)
+          {
+              for(int jj=0; jj < RealSquare; jj++)
+              {
+                  std::cout << -Square+ii << "\t" << -Square+jj << "\t" << ReciveGrid[RealSquare*jj + ii]<<std::endl;
+              }
+
+          }
+      }
+  }
+
+
   MPI_Finalize();
-    
 }
 
+
+//0 0 0 1 0 0 0
+//0 0 0 1 0 0 0
+//0 0 0 1 0 0 0
+//1 1 1 1 1 1 1
+//0 0 0 1 0 0 0
+//0 0 0 1 0 0 0
+//0 0 0 1 0 0 0
