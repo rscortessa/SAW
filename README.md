@@ -9,4 +9,4 @@
 > * **linearsnake.pdf** archivo concerniente a la gráfica de las métricas
 > * **metrica$(S).txt** Conjunto de datos relacionados con las métricas, se debe especificar la dimensión asignandole un valor a la variable S, (make S=...)
 > * **snake.x** Es el ejecutable del código principal, necesario para generar los datos y las gráficas.
-> * **snake$S.txt** Archivo de datos referentes a las gráficas principales, los datos se organizan de la forma: (paso $r^2_{vivas}$ $P_{death}$ $r_{muestra}^2$ $p_{death}$)
+> * **snake$S.txt** Archivo de datos referentes a las gráficas principales, los datos se organizan de la forma:\(E = mc^2\) (paso $r^2_{vivas}$ $P_{death}$ $r_{muestra}^2$ $p_{death}$)
