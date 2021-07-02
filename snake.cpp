@@ -24,11 +24,11 @@ void random_step(int N,snake &f, bool enclosed, int Square) //N stands for dimen
   if(enclosed==true){f.enclosed_chequear(available_directions,Square,N);}
   if(f.Life==true)
     {
-      std::random_device r;
+      std::random_device r; 
       std::mt19937 gen(r());
       std::uniform_int_distribution<> distrib(0, available_directions.size()-1);
       int rando = distrib(gen);
-      std::transform (f.r.begin(), f.r.end(), available_directions[rando].begin(), f.r.begin(), std::plus<int>());
+      std::transform (f.r.begin(), f.r.end(), available_directions[rando].begin(), f.r.begin(), std::plus<int>()); // we add to r, the direction randomly chosen
       f.History.push_back(f.r);
     }
   
@@ -40,8 +40,8 @@ std::vector<double> promedios(const jungle & snakes, int paso, int TotS) //TotS=
     {
       if(x.DeathDate==paso)
 	{
-    prom[5]+= 1.0;
-	  prom[3]+= paso;
+    	prom[5]+= 1.0; // prom 5 will count total snakes who died in this step, later will  give probability density function
+	  prom[3]+= paso; 
 	  prom[4]+= paso*paso;
 	}
       if( x.DeathDate > paso)
@@ -183,7 +183,7 @@ std::vector<double> print_promedios(int t,const jungle & snakes,std::string a, i
       average[0] = 1-average[0]/(TotS*np); //now it is proportion death to all
       average[3] /= TotS*np;  // this is x*prob_death(x)
       average[4] /= TotS*np;  // this is x²*prob_deat(x)
-      average[5] /= TotS*np;
+      average[5] /= TotS*np; //prob density func
       if(pid==0)
 	{
 	  lifetime[0]+=average[3]; //lifetime will give us at the end E[x] and E[x²]
