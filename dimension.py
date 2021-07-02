@@ -16,6 +16,7 @@ except:
     t=""
 exponentes=[]
 dimension=[]
+errorexp=[]
 #Column data is saved in arrays
 for i in range(2,11):
     colmil_1 = []
@@ -33,11 +34,13 @@ for i in range(2,11):
     LR_1=LinearR2(colmil_1,colmil_2)
     exponentes.append(float(LR_1[2]))
     dimension.append(i)
+    errorexp.append(float(LR_1[3]))
 #Lifetime
 plt.figure(1)
 plt.style.use("Solarize_Light2")
 plt.ylim(0.99,1.6)
-plt.scatter(dimension,exponentes,linestyle="dashed",linewidth=1, label= "Dimension", color= "red", marker= "*", s=20)
+plt.errorbar(dimension,exponentes,yerr=errorexp, fmt="o",color= "blue")
+plt.scatter(dimension,exponentes,linestyle="dashed",linewidth=1, label= "Dimension", color= "red", marker= "*", s=40)
 plt.text(9,1.4,"T="+str(t))
 plt.xlabel('Dimension')
 plt.ylabel(r'b')

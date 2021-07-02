@@ -22,10 +22,10 @@ int main (int argc, char** argv)
   double muertes=0;
 
   double t0 = MPI_Wtime();//time strats to run
-  for(int i=0;i<t;i++)
+  for(int ii=0;ii<PP;ii++)
   {
    
-    for(int ii=0;ii<PP;ii++)
+    for(int i=0;i<t;i++)
       {
 	if (snakes[ii].Life==true) random_step(N,snakes[ii]);
       }

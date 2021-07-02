@@ -17,6 +17,7 @@ snake.x: snake_main.cpp snake.h snake.cpp
 snake$S.txt: snake.x
 	mpirun -np $(np) --oversubscribe ./$< $(S) $(P) $(T) > estadistica.txt
 
+
 lifetime.txt: snake.x
 	mpirun -np $(np) ./$< $(S) $(P) $(T) >> lifetime.txt
 	touch snake.x
