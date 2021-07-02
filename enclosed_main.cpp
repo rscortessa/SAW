@@ -46,7 +46,7 @@ int main (int argc, char** argv)
 
       std::vector<double> ReciveGrid(RealSquare*RealSquare,0.0);
 
-      MPI_Reduce(&Grid, &ReciveGrid, RealSquare*RealSquare, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+      MPI_Reduce(&Grid[0], &ReciveGrid[0], RealSquare*RealSquare, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
 
       for(auto & x: ReciveGrid){ x /= P; };
       
