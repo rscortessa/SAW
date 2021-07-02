@@ -41,10 +41,10 @@ int main (int argc, char** argv)
       }
     }
   }
-  if(william ==2 ) 
+  if(William ==2 ) 
   {
     fun_square (snakes, Square, N, pid, PP, P);
-  } else() { 
+  } else{ 
     std::cout << "functionality not available" << std::endl; }
   MPI_Finalize();
 }
