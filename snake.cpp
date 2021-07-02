@@ -21,7 +21,7 @@ void random_step(int N,snake &f, bool enclosed, int Square) //N stands for dimen
 	}
   }
   if(enclosed==false){f.chequear(available_directions, N);}
-  if(enclosed==true){f.enclosed_chequear(available_directions,N, Square);}
+  if(enclosed==true){f.enclosed_chequear(available_directions,Square,N);}
   if(f.Life==true)
     {
       std::random_device r;
@@ -162,7 +162,7 @@ void snake::print_History(void)
   std::cout<<std::endl;
 }
 
-std::vector<double> print_promedios(int t,jungle snakes,std::string a, int pid, int np, int TotS) //TotS is snakes per process
+std::vector<double> print_promedios(int t,const jungle & snakes,std::string a, int pid, int np, int TotS) //TotS is snakes per process
 {
   std::ofstream print;
   std::vector<double> lifetime(2,0);
