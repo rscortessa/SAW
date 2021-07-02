@@ -32,7 +32,8 @@ int main (int argc, char** argv)
       } // each snake is stepped until it dies
   }
 
-  if (William == 1){
+  if (William == 1)
+  {
     std::vector<double> auxv = dist_deaths(snakes, PP); //auxv saves all the deaths per steps
     if (pid==0){
       for (int ii=0; ii<auxv.size(); ii++){
@@ -40,9 +41,11 @@ int main (int argc, char** argv)
       }
     }
   }
-  else {
+  if(william ==2 ) 
+  {
     fun_square (snakes, Square, N, pid, PP, P);
-  }
+  } else() { 
+    std::cout << "functionality not available" << std::endl; }
   MPI_Finalize();
 }
 
