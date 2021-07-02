@@ -4,8 +4,9 @@
 #include "mpi.h"
 #include "snake.h"
 
-std::vector<double> dist_deaths (jungle & snakes, int PP);
-void fun_square (jungle & snakes, int Square, int N, int pid, int PP, int P);
+std::vector<double> dist_deaths (jungle & snakes, int PP); //generates and prints the probability density function of the probability of death in a given step
+void fun_square (jungle & snakes, int Square, int N, int pid, int PP, int P); //generates and prints the probability density function
+                                                                                             //of the probability of death in a given location
 
 int main (int argc, char** argv)
 {
