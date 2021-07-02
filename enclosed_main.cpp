@@ -4,8 +4,9 @@
 #include "mpi.h"
 #include "snake.h"
 
-std::vector<double> dist_deaths (jungle & snakes, int PP);
-void fun_square (jungle & snakes, int Square, int N, int pid, int PP, int P);
+std::vector<double> dist_deaths (jungle & snakes, int PP); //generates and prints the probability density function of the probability of death in a given step
+void fun_square (jungle & snakes, int Square, int N, int pid, int PP, int P); //generates and prints the probability density function
+                                                                                             //of the probability of death in a given location
 
 int main (int argc, char** argv)
 {
@@ -31,7 +32,8 @@ int main (int argc, char** argv)
       } // each snake is stepped until it dies
   }
 
-  if (William == 1){
+  if (William == 1)
+  {
     std::vector<double> auxv = dist_deaths(snakes, PP); //auxv saves all the deaths per steps
     if (pid==0){
       for (int ii=0; ii<auxv.size(); ii++){
@@ -39,9 +41,11 @@ int main (int argc, char** argv)
       }
     }
   }
-  else {
+  if(William ==2 ) 
+  {
     fun_square (snakes, Square, N, pid, PP, P);
-  }
+  } else{ 
+    std::cout << "functionality not available" << std::endl; }
   MPI_Finalize();
 }
 
